@@ -1,11 +1,12 @@
 import '../styles/tailwind.css'
 
 import { CssBaseline, GeistProvider } from '@geist-ui/react'
-import { Provider as JotaiRoot } from 'jotai'
-import { useAtom } from 'jotai'
+import Amplify from 'aws-amplify'
+import { Provider as JotaiRoot, useAtom } from 'jotai'
 import { DefaultSeo } from 'next-seo'
 import { AppProps } from 'next/app'
 
+import awsConfig from '../aws-exports'
 import SEO from '../lib/seo.config'
 import { themeAtom } from '../state/atoms'
 
@@ -29,4 +30,5 @@ const GeistApp: React.FC = ({ children }) => {
   )
 }
 
+Amplify.configure({ ...awsConfig, ssr: true })
 export default App
