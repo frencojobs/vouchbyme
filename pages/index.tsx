@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 
 import { Authenticated } from '../components/auth/Authenticated'
-import { Layout } from '../components/Layout'
+import { BaseLayout } from '../components/layouts/Base'
 
 const IndexPage: NextPage = () => {
   return (
     <Authenticated path="/">
-      <Layout>Index Page</Layout>
+      <BaseLayout>Index Page</BaseLayout>
     </Authenticated>
   )
 }

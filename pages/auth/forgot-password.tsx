@@ -17,22 +17,24 @@ import { useState } from 'react'
 
 import { AuthLayout } from '../../components/layouts/Auth'
 
-const Confirm: NextPage = () => {
+const ForgotPassword: NextPage = () => {
   const router = useRouter()
   const query = router.query['username'] as string
+
   const [loading, setLoading] = useState(false)
-  const [sending, setSending] = useState(false)
 
   const [, addToast] = useToasts()
   const username = useInput(query ?? '')
-  const code = useInput('')
 
-  const confirm = async () => {
+  const sendCode = async () => {
     try {
       setLoading(true)
-      await Auth.confirmSignUp(username.state, code.state)
+      await Auth.forgotPassword(username.state)
 
-      router.push('/auth/sign-in')
+      router.push(
+        `/auth/reset-password?username=${username.state}`,
+        '/auth/reset-password'
+      )
     } catch (e) {
       if (typeof e === 'object' && e !== null && e.hasOwnProperty('message')) {
         addToast({
@@ -47,48 +49,17 @@ const Confirm: NextPage = () => {
     }
   }
 
-  const resend = async () => {
-    try {
-      setSending(true)
-      await Auth.resendSignUp(username.state)
-    } catch (e) {
-      if (typeof e === 'object' && e !== null && e.hasOwnProperty('message')) {
-        addToast({
-          type: 'error',
-          text: e.message,
-        })
-      } else {
-        console.error(e)
-      }
-    } finally {
-      setSending(false)
-    }
-  }
-
   return (
     <AuthLayout>
       <form
         onSubmit={(e) => {
           e.preventDefault()
         }}>
-        <Text h3>Confirm your account</Text>
+        <Text h3>Reset your password</Text>
         <Spacer y={2} />
         <Input {...username.bindings} width="100%">
           Username
         </Input>
-        <Spacer />
-        <Input type="number" {...code.bindings} width="100%">
-          Confirmation Code
-        </Input>
-        <Text type="secondary" className="text-sm">
-          Didn&apos;t receive?{' '}
-          <Link
-            href="#"
-            color
-            onClick={() => (sending ? () => null : resend())}>
-            Resend
-          </Link>
-        </Text>
         <Spacer y={3} />
         <div className="flex flex-col items-center justify-between sm:flex-row-reverse">
           <Button
@@ -96,8 +67,8 @@ const Confirm: NextPage = () => {
             htmlType="submit"
             className="w-full sm:w-auto"
             loading={loading}
-            onClick={confirm}>
-            <Text b>Confirm</Text>
+            onClick={sendCode}>
+            <Text b>Send code</Text>
           </Button>
           <Spacer className="block sm:hidden" />
           <Row>
@@ -112,4 +83,4 @@ const Confirm: NextPage = () => {
   )
 }
 
-export default Confirm
+export default ForgotPassword
