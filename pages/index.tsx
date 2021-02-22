@@ -1,25 +1,28 @@
-import { Auth } from 'aws-amplify'
-import { useAtom } from 'jotai'
-import { NextPage } from 'next'
-import Router from 'next/router'
-import { useEffect } from 'react'
+import { withSSRContext } from 'aws-amplify'
+import { GetServerSideProps, NextPage } from 'next'
 
-import { userAtom } from '../state/atoms'
 import HomePage from './home'
 
 const IndexPage: NextPage = () => {
-  const [, setUser] = useAtom(userAtom)
-
-  useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        setUser(user)
-        Router.push('/dashboard')
-      })
-      .catch((e) => console.error(e))
-  }, [])
-
   return <HomePage />
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { Auth } = withSSRContext({ req })
+
+  try {
+    await Auth.currentAuthenticatedUser()
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/dashboard`,
+      },
+    }
+  } catch (e) {
+    return {
+      props: {},
+    }
+  }
 }
 
 export default IndexPage

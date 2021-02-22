@@ -10,12 +10,15 @@ import {
 } from '@geist-ui/react'
 import { NextPage } from 'next'
 import NextLink from 'next/link'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { AuthLayout } from '../../components/layouts/Auth'
 
 const SignIn: NextPage = () => {
+  const router = useRouter()
+  const next = router.query['next'] as string
+
   const [loading, setLoading] = useState(false)
 
   const [, addToast] = useToasts()
@@ -30,7 +33,7 @@ const SignIn: NextPage = () => {
         password: password.state,
       })
 
-      Router.push('/')
+      router.push(next)
     } catch (e) {
       if (typeof e === 'object' && e !== null) {
         if (e.hasOwnProperty('message')) {
@@ -44,7 +47,7 @@ const SignIn: NextPage = () => {
           e.hasOwnProperty('code') &&
           e.code === 'UserNotConfirmedException'
         ) {
-          Router.push(
+          router.push(
             `/auth/confirm?username=${username.state}`,
             '/auth/confirm'
           )

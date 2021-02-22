@@ -1,14 +1,36 @@
-import { NextPage } from 'next'
+import { withSSRContext } from 'aws-amplify'
+import { GetServerSideProps, NextPage } from 'next'
 
-import { Authenticated } from '../components/auth/Authenticated'
 import { BaseLayout } from '../components/layouts/Base'
 
-const DashboardPage: NextPage = () => {
-  return (
-    <Authenticated path="/">
-      <BaseLayout>Dashboard</BaseLayout>
-    </Authenticated>
-  )
+type Props = {
+  username: string
+}
+
+const DashboardPage: NextPage<Props> = ({ username }) => {
+  return <BaseLayout>{username}</BaseLayout>
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  req,
+}) => {
+  const { Auth } = withSSRContext({ req })
+
+  try {
+    const user = await Auth.currentAuthenticatedUser()
+    return {
+      props: {
+        username: user.getUsername(),
+      },
+    }
+  } catch (e) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/auth/sign-in?next=${req.url}`,
+      },
+    }
+  }
 }
 
 export default DashboardPage
