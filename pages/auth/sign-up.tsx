@@ -10,16 +10,19 @@ import {
   useToasts,
 } from '@geist-ui/react'
 import ChevronLeft from '@geist-ui/react-icons/chevronLeft'
-import { NextPage } from 'next'
+import { withSSRContext } from 'aws-amplify'
+import { useAtom } from 'jotai'
+import { GetServerSideProps, NextPage } from 'next'
 import NextLink from 'next/link'
 import Router from 'next/router'
 import { useState } from 'react'
 
 import { AuthLayout } from '../../components/layouts/Auth'
+import { signInCacheAtom } from '../../state/atoms'
 
 const SignUp: NextPage = () => {
+  const [signInCache, setSignInCache] = useAtom(signInCacheAtom)
   const [loading, setLoading] = useState(false)
-
   const [, addToast] = useToasts()
   const username = useInput('')
   const email = useInput('')
@@ -37,6 +40,12 @@ const SignUp: NextPage = () => {
       })
 
       if (!res.userConfirmed) {
+        setSignInCache({
+          username: username.state,
+          password: password.state,
+          next: signInCache?.next,
+        })
+
         Router.push(
           `/auth/confirm?username=${res.user.getUsername()}`,
           '/auth/confirm'
@@ -96,6 +105,22 @@ const SignUp: NextPage = () => {
       </form>
     </AuthLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { Auth } = withSSRContext({ req })
+
+  try {
+    await Auth.currentAuthenticatedUser()
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/dashboard`,
+      },
+    }
+  } catch (e) {
+    return { props: {} }
+  }
 }
 
 export default SignUp

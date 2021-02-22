@@ -10,7 +10,8 @@ import {
   useToasts,
 } from '@geist-ui/react'
 import ChevronLeft from '@geist-ui/react-icons/chevronLeft'
-import { NextPage } from 'next'
+import { withSSRContext } from 'aws-amplify'
+import { GetServerSideProps, NextPage } from 'next'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -20,9 +21,7 @@ import { AuthLayout } from '../../components/layouts/Auth'
 const ForgotPassword: NextPage = () => {
   const router = useRouter()
   const query = router.query['username'] as string
-
   const [loading, setLoading] = useState(false)
-
   const [, addToast] = useToasts()
   const username = useInput(query ?? '')
 
@@ -81,6 +80,22 @@ const ForgotPassword: NextPage = () => {
       </form>
     </AuthLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { Auth } = withSSRContext({ req })
+
+  try {
+    await Auth.currentAuthenticatedUser()
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/dashboard`,
+      },
+    }
+  } catch (e) {
+    return { props: {} }
+  }
 }
 
 export default ForgotPassword

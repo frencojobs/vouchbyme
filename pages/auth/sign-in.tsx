@@ -8,19 +8,22 @@ import {
   useInput,
   useToasts,
 } from '@geist-ui/react'
+import { withSSRContext } from 'aws-amplify'
+import { useAtom } from 'jotai'
 import { NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { AuthLayout } from '../../components/layouts/Auth'
+import { signInCacheAtom } from '../../state/atoms'
 
 const SignIn: NextPage = () => {
   const router = useRouter()
   const next = router.query['next'] as string
-
+  const [, setSignInCache] = useAtom(signInCacheAtom)
   const [loading, setLoading] = useState(false)
-
   const [, addToast] = useToasts()
   const username = useInput('')
   const password = useInput('')
@@ -33,7 +36,7 @@ const SignIn: NextPage = () => {
         password: password.state,
       })
 
-      router.push(next)
+      router.push(next ?? '/dashboard')
     } catch (e) {
       if (typeof e === 'object' && e !== null) {
         if (e.hasOwnProperty('message')) {
@@ -47,6 +50,12 @@ const SignIn: NextPage = () => {
           e.hasOwnProperty('code') &&
           e.code === 'UserNotConfirmedException'
         ) {
+          setSignInCache({
+            username: username.state,
+            password: password.state,
+            next,
+          })
+
           router.push(
             `/auth/confirm?username=${username.state}`,
             '/auth/confirm'
@@ -101,6 +110,22 @@ const SignIn: NextPage = () => {
       </form>
     </AuthLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { Auth } = withSSRContext({ req })
+
+  try {
+    await Auth.currentAuthenticatedUser()
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/dashboard`,
+      },
+    }
+  } catch (e) {
+    return { props: {} }
+  }
 }
 
 export default SignIn

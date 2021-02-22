@@ -10,19 +10,22 @@ import {
   useToasts,
 } from '@geist-ui/react'
 import ChevronLeft from '@geist-ui/react-icons/chevronLeft'
-import { NextPage } from 'next'
+import { withSSRContext } from 'aws-amplify'
+import { useAtom } from 'jotai'
+import { GetServerSideProps, NextPage } from 'next'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { AuthLayout } from '../../components/layouts/Auth'
+import { signInCacheAtom } from '../../state/atoms'
 
 const Confirm: NextPage = () => {
   const router = useRouter()
   const query = router.query['username'] as string
+  const [signInCache, setSignInCache] = useAtom(signInCacheAtom)
   const [loading, setLoading] = useState(false)
   const [sending, setSending] = useState(false)
-
   const [, addToast] = useToasts()
   const username = useInput(query ?? '')
   const code = useInput('')
@@ -32,7 +35,12 @@ const Confirm: NextPage = () => {
       setLoading(true)
       await Auth.confirmSignUp(username.state, code.state)
 
-      router.push('/auth/sign-in')
+      if (signInCache !== null) {
+        await Auth.signIn(signInCache)
+        router.push(signInCache.next ?? '/dashboard')
+      } else {
+        router.push('/auth/sign-in')
+      }
     } catch (e) {
       if (typeof e === 'object' && e !== null && e.hasOwnProperty('message')) {
         addToast({
@@ -44,6 +52,7 @@ const Confirm: NextPage = () => {
       }
     } finally {
       setLoading(false)
+      setSignInCache(null)
     }
   }
 
@@ -110,6 +119,22 @@ const Confirm: NextPage = () => {
       </form>
     </AuthLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { Auth } = withSSRContext({ req })
+
+  try {
+    await Auth.currentAuthenticatedUser()
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/dashboard`,
+      },
+    }
+  } catch (e) {
+    return { props: {} }
+  }
 }
 
 export default Confirm
