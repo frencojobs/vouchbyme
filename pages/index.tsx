@@ -1,14 +1,25 @@
+import { Auth } from 'aws-amplify'
+import { useAtom } from 'jotai'
 import { NextPage } from 'next'
+import Router from 'next/router'
+import { useEffect } from 'react'
 
-import { Authenticated } from '../components/auth/Authenticated'
-import { BaseLayout } from '../components/layouts/Base'
+import { userAtom } from '../state/atoms'
+import HomePage from './home'
 
 const IndexPage: NextPage = () => {
-  return (
-    <Authenticated path="/">
-      <BaseLayout>Index Page</BaseLayout>
-    </Authenticated>
-  )
+  const [, setUser] = useAtom(userAtom)
+
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        setUser(user)
+        Router.push('/dashboard')
+      })
+      .catch((e) => console.error(e))
+  }, [])
+
+  return <HomePage />
 }
 
 export default IndexPage

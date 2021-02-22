@@ -6,7 +6,7 @@ export const Header: React.FC = () => {
     <Row align="middle" justify="space-between" className="pt-2">
       <Text className="text-xl font-bold">Vouched by Me</Text>
       <Button type="secondary" size="small" onClick={() => Auth.signOut()}>
-        Sign Out
+        <Text b>Sign Out</Text>
       </Button>
     </Row>
   )
