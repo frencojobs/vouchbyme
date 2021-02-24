@@ -9,4 +9,6 @@ export const signInCacheAtom = atom<{
   next?: string
 } | null>(null)
 export const userAtom = atom<User | null>(null)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const avatarAtom = atom<any>(null)
 export const currentProfileMenuIndexAtom = atom<number>(0)

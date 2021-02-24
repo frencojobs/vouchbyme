@@ -1,6 +1,6 @@
 projects:
   vouchedbyme:
-    schemaPath: graphql/schema.json
+    schemaPath: amplify/backend/api/vouchedbyme/build/schema.graphql
     includes:
       - graphql/**/*.ts
     excludes:
@@ -10,3 +10,6 @@ projects:
         codeGenTarget: typescript
         generatedFileName: types/api.ts
         docsFilePath: graphql
+extensions:
+  amplify:
+    version: 3

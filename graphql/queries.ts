@@ -8,7 +8,8 @@ export const getUser = /* GraphQL */ `
       id
       username
       email
-      name
+      firstName
+      lastName
       avatar
       bio
       links {
@@ -17,6 +18,18 @@ export const getUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      collections {
+        items {
+          owner
+          createdAt
+          id
+          title
+          vouchFor
+          vouch
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -39,7 +52,8 @@ export const listUsers = /* GraphQL */ `
         id
         username
         email
-        name
+        firstName
+        lastName
         avatar
         bio
         links {
@@ -48,6 +62,105 @@ export const listUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        collections {
+          nextToken
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getCollection = /* GraphQL */ `
+  query GetCollection($id: ID!) {
+    getCollection(id: $id) {
+      owner
+      createdAt
+      id
+      title
+      vouchFor
+      vouch
+      updatedAt
+      posts {
+        items {
+          id
+          collectionId
+          index
+          type
+          title
+          cover
+          body
+          link
+          vouch
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const listCollections = /* GraphQL */ `
+  query ListCollections(
+    $filter: ModelCollectionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCollections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        owner
+        createdAt
+        id
+        title
+        vouchFor
+        vouch
+        updatedAt
+        posts {
+          nextToken
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getPost = /* GraphQL */ `
+  query GetPost($id: ID!) {
+    getPost(id: $id) {
+      id
+      collectionId
+      index
+      type
+      title
+      cover
+      body
+      link
+      vouch
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listPosts = /* GraphQL */ `
+  query ListPosts(
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        collectionId
+        index
+        type
+        title
+        cover
+        body
+        link
+        vouch
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }

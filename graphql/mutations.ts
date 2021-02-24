@@ -11,7 +11,8 @@ export const createUser = /* GraphQL */ `
       id
       username
       email
-      name
+      firstName
+      lastName
       avatar
       bio
       links {
@@ -20,6 +21,18 @@ export const createUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      collections {
+        items {
+          owner
+          createdAt
+          id
+          title
+          vouchFor
+          vouch
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -32,7 +45,8 @@ export const updateUser = /* GraphQL */ `
       id
       username
       email
-      name
+      firstName
+      lastName
       avatar
       bio
       links {
@@ -41,6 +55,18 @@ export const updateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      collections {
+        items {
+          owner
+          createdAt
+          id
+          title
+          vouchFor
+          vouch
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -53,7 +79,8 @@ export const deleteUser = /* GraphQL */ `
       id
       username
       email
-      name
+      firstName
+      lastName
       avatar
       bio
       links {
@@ -62,6 +89,180 @@ export const deleteUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      collections {
+        items {
+          owner
+          createdAt
+          id
+          title
+          vouchFor
+          vouch
+          updatedAt
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const createCollection = /* GraphQL */ `
+  mutation CreateCollection(
+    $input: CreateCollectionInput!
+    $condition: ModelCollectionConditionInput
+  ) {
+    createCollection(input: $input, condition: $condition) {
+      owner
+      createdAt
+      id
+      title
+      vouchFor
+      vouch
+      updatedAt
+      posts {
+        items {
+          id
+          collectionId
+          index
+          type
+          title
+          cover
+          body
+          link
+          vouch
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const updateCollection = /* GraphQL */ `
+  mutation UpdateCollection(
+    $input: UpdateCollectionInput!
+    $condition: ModelCollectionConditionInput
+  ) {
+    updateCollection(input: $input, condition: $condition) {
+      owner
+      createdAt
+      id
+      title
+      vouchFor
+      vouch
+      updatedAt
+      posts {
+        items {
+          id
+          collectionId
+          index
+          type
+          title
+          cover
+          body
+          link
+          vouch
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const deleteCollection = /* GraphQL */ `
+  mutation DeleteCollection(
+    $input: DeleteCollectionInput!
+    $condition: ModelCollectionConditionInput
+  ) {
+    deleteCollection(input: $input, condition: $condition) {
+      owner
+      createdAt
+      id
+      title
+      vouchFor
+      vouch
+      updatedAt
+      posts {
+        items {
+          id
+          collectionId
+          index
+          type
+          title
+          cover
+          body
+          link
+          vouch
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const createPost = /* GraphQL */ `
+  mutation CreatePost(
+    $input: CreatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    createPost(input: $input, condition: $condition) {
+      id
+      collectionId
+      index
+      type
+      title
+      cover
+      body
+      link
+      vouch
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updatePost = /* GraphQL */ `
+  mutation UpdatePost(
+    $input: UpdatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    updatePost(input: $input, condition: $condition) {
+      id
+      collectionId
+      index
+      type
+      title
+      cover
+      body
+      link
+      vouch
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deletePost = /* GraphQL */ `
+  mutation DeletePost(
+    $input: DeletePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    deletePost(input: $input, condition: $condition) {
+      id
+      collectionId
+      index
+      type
+      title
+      cover
+      body
+      link
+      vouch
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;

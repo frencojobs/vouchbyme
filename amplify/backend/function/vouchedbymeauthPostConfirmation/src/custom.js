@@ -10,7 +10,6 @@ exports.handler = async (event, context) => {
         __typename: { S: 'User' },
         username: { S: event.userName },
         email: { S: event.request.userAttributes.email },
-        links: { L: [] },
         createdAt: { S: date.toISOString() },
         updatedAt: { S: date.toISOString() },
       },

@@ -3,6 +3,7 @@ type User
   @auth(
     rules: [
       { allow: owner, ownerField: "username", operations: [read, update] }
+      { allow: private, operations: [read] }
       { allow: public, operations: [read] }
     ]
   )
@@ -13,13 +14,56 @@ type User
   email: String!
 
   # Profile Props
-  name: String
+  firstName: String
+  lastName: String
   avatar: String
   bio: String
-  links: [Link!]!
+  links: [Link!]
+  collections: [Collection!]
+    @connection(keyName: "byUsername", fields: ["username"])
 }
 
 type Link {
   type: String!
   url: String!
+}
+
+type Collection
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  )
+  @key(name: "byUsername", fields: ["owner", "createdAt"]) {
+  owner: String
+  createdAt: AWSDateTime! @auto
+  id: ID!
+  title: String!
+  vouchFor: String
+  posts: [Post!] @connection(keyName: "byCollection", fields: ["id"])
+  vouch: Int!
+}
+
+type Post
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  )
+  @key(name: "byCollection", fields: ["collectionId", "index"]) {
+  id: ID!
+  collectionId: ID!
+  index: Int!
+  type: String!
+  title: String!
+  cover: String
+  body: String
+  link: String
+  vouch: Int!
 }
