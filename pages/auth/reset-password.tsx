@@ -9,7 +9,7 @@ import {
   useInput,
   useToasts,
 } from '@geist-ui/react'
-import ChevronLeft from '@geist-ui/react-icons/chevronLeft'
+import ChevronLeftIcon from '@geist-ui/react-icons/chevronLeft'
 import { withSSRContext } from 'aws-amplify'
 import { GetServerSideProps, NextPage } from 'next'
 import NextLink from 'next/link'
@@ -59,15 +59,15 @@ const ResetPassword: NextPage = () => {
         }}>
         <Text h3>Reset your password</Text>
         <Spacer y={2} />
-        <Input {...username.bindings} width="100%">
+        <Input {...username.bindings} width="100%" size="large">
           Username
         </Input>
         <Spacer />
-        <Input type="number" {...code.bindings} width="100%">
+        <Input type="number" {...code.bindings} width="100%" size="large">
           Verification Code
         </Input>
         <Spacer />
-        <Input.Password {...password.bindings} width="100%">
+        <Input.Password {...password.bindings} width="100%" size="large">
           New Password
         </Input.Password>
         <Spacer y={3} />
@@ -82,7 +82,7 @@ const ResetPassword: NextPage = () => {
           </Button>
           <Spacer className="block sm:hidden" />
           <Row>
-            <ChevronLeft color="#0070f3" size={20} />
+            <ChevronLeftIcon color="#0070f3" size={20} />
             <NextLink href="/auth/sign-in">
               <Link color>Sign In</Link>
             </NextLink>

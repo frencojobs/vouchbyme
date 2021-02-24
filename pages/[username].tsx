@@ -1,4 +1,5 @@
 import type { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
+import { Text } from '@geist-ui/react'
 import { API } from 'aws-amplify'
 import { GetServerSideProps, NextPage } from 'next'
 
@@ -10,7 +11,23 @@ type Props = {
 }
 
 const UsernamePage: NextPage<Props> = ({ user }) => {
-  return <>{user.email}</>
+  return (
+    <>
+      <div className="bg-blue-100 bg-opacity-25">
+        <div className="max-w-5xl px-10 mx-auto">
+          <div className="flex flex-col items-center flex-grow-0 md:items-start">
+            <Text h3 b className="leading-none">
+              {user.username}
+            </Text>
+            <span className="leading-none">{user.email}</span>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-5xl px-10 mx-auto">
+        <div className="bg-red-500"></div>
+      </div>
+    </>
+  )
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({

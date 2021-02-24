@@ -1,0 +1,27 @@
+.tabs > .content {
+  display: none !important; /** hide default content */
+}
+
+.tabs .tab {
+  /** apply py-4 */
+  padding-top: 1rem /* 16px */ !important;
+  padding-bottom: 1rem /* 16px */ !important;
+}
+
+.tabs .tab::after {
+  height: 0.2rem !important;
+}
+
+.dashboard-nav::before {
+  position: absolute;
+  content: '';
+  height: 2px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #eaeaea;
+}
+
+textarea {
+  font-size: 1rem !important;
+}

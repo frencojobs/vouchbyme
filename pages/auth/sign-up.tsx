@@ -9,7 +9,7 @@ import {
   useInput,
   useToasts,
 } from '@geist-ui/react'
-import ChevronLeft from '@geist-ui/react-icons/chevronLeft'
+import ChevronLeftIcon from '@geist-ui/react-icons/chevronLeft'
 import { withSSRContext } from 'aws-amplify'
 import { useAtom } from 'jotai'
 import { GetServerSideProps, NextPage } from 'next'
@@ -73,15 +73,15 @@ const SignUp: NextPage = () => {
         }}>
         <Text h3>Create a new account</Text>
         <Spacer y={2} />
-        <Input {...username.bindings} width="100%">
+        <Input {...username.bindings} width="100%" size="large">
           Username
         </Input>
         <Spacer />
-        <Input {...email.bindings} width="100%">
+        <Input {...email.bindings} width="100%" size="large">
           Email
         </Input>
         <Spacer />
-        <Input.Password {...password.bindings} width="100%">
+        <Input.Password {...password.bindings} width="100%" size="large">
           Password
         </Input.Password>
         <Spacer y={3} />
@@ -96,7 +96,7 @@ const SignUp: NextPage = () => {
           </Button>
           <Spacer className="block sm:hidden" />
           <Row>
-            <ChevronLeft color="#0070f3" size={20} />
+            <ChevronLeftIcon color="#0070f3" size={20} />
             <NextLink href="/auth/sign-in">
               <Link color>Sign In</Link>
             </NextLink>

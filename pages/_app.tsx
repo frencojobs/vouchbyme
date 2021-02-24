@@ -1,4 +1,5 @@
 import '../styles/tailwind.css'
+import '../styles/global.css'
 
 import { CssBaseline, GeistProvider } from '@geist-ui/react'
 import Amplify from 'aws-amplify'

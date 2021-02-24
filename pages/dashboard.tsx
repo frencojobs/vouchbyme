@@ -1,14 +1,47 @@
-import { withSSRContext } from 'aws-amplify'
+import { API, withSSRContext } from 'aws-amplify'
+import { useAtom } from 'jotai'
 import { GetServerSideProps, NextPage } from 'next'
+import { useEffect, useState } from 'react'
 
-import { BaseLayout } from '../components/layouts/Base'
+import { DashboardLayout } from '../components/layouts/dashboard'
+import { Profile } from '../components/layouts/dashboard/Profile'
+import { getUser } from '../graphql/queries'
+import { userAtom } from '../state/atoms'
+import { TabType } from '../types'
+import { GetUserQuery, User } from '../types/api'
 
 type Props = {
   username: string
 }
 
 const DashboardPage: NextPage<Props> = ({ username }) => {
-  return <BaseLayout>{username}</BaseLayout>
+  const [tab, setTab] = useState<TabType>('profile')
+  const [, setUser] = useAtom(userAtom)
+
+  useEffect(() => {
+    ;(async () => {
+      const res = (await API.graphql({
+        query: getUser,
+        variables: {
+          username,
+        },
+      })) as { data: GetUserQuery }
+      setUser(res.data.getUser as User)
+    })()
+  }, [])
+
+  return (
+    <DashboardLayout onTabChange={(t) => setTab(t)}>
+      {(() => {
+        switch (tab) {
+          case 'profile':
+            return <Profile />
+          case 'collections':
+            return 'collections'
+        }
+      })()}
+    </DashboardLayout>
+  )
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({
