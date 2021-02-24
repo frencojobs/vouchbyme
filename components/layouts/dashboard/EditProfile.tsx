@@ -18,7 +18,7 @@ import {
   UpdateUserMutationVariables,
   User,
 } from '../../../types/api'
-import { Avatar } from './Avatar'
+import { AvatarUpload } from './AvatarUpload'
 
 type Props = { user: User }
 
@@ -31,11 +31,13 @@ export const EditProfile: React.FC<Props> = ({ user }) => {
   const bio = useInput('')
 
   const [saving, setSaving] = useState(false)
+
   useEffect(() => {
     firstName.setState(user?.firstName ?? '')
     lastName.setState(user?.lastName ?? '')
     bio.setState(user?.bio ?? '')
   }, [user])
+
   const saveProfile = async () => {
     try {
       setSaving(true)
@@ -59,6 +61,8 @@ export const EditProfile: React.FC<Props> = ({ user }) => {
           type: 'error',
           text: e.message,
         })
+      } else {
+        console.error(e)
       }
     } finally {
       setSaving(false)
@@ -71,18 +75,7 @@ export const EditProfile: React.FC<Props> = ({ user }) => {
         Edit Profile
       </Text>
       <Spacer />
-      <div className="flex flex-row items-center">
-        <Avatar src="https://frenco.dev/cover.png" />
-        <Spacer />
-        <div className="flex flex-col">
-          <Text h5 b>
-            Profile Picture
-          </Text>
-          <Button size="mini" type="success" ghost>
-            <Text b>Upload New</Text>
-          </Button>
-        </div>
-      </div>
+      <AvatarUpload user={user} />
       <Spacer y={2} />
       <div className="flex flex-col md:flex-row">
         <Input size="large" width="100%" {...firstName.bindings}>
