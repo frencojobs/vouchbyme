@@ -17,9 +17,9 @@ const UsernamePage: NextPage<Props> = ({ user }) => {
         <div className="max-w-5xl px-10 mx-auto">
           <div className="flex flex-col items-center flex-grow-0 md:items-start">
             <Text h3 b className="leading-none">
-              {user.username}
+              {user.firstName + ' ' + user.lastName}
             </Text>
-            <span className="leading-none">{user.email}</span>
+            <span className="leading-none">{user.bio}</span>
           </div>
         </div>
       </div>

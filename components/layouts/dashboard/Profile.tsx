@@ -25,9 +25,9 @@ export const Profile: React.FC = () => {
           <Spacer />
           {menu.map((item, index) => (
             <div
-              key="item"
+              key={item}
               onClick={() => setCurrentMenuIndex(index)}
-              className={cn('flex flex-row py-1 cursor-pointer select-none', {
+              className={cn('flex flex-row py-2 cursor-pointer select-none', {
                 'font-bold': index === currentMenuIndex,
               })}>
               <Dot type={index === currentMenuIndex ? 'success' : 'default'} />
