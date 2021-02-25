@@ -20,7 +20,7 @@ type Props = {
 
 export const AvatarUpload: React.FC<Props> = ({ user }) => {
   const [, addToast] = useToasts()
-  const [setUser] = useAtom(userAtom)
+  const [, setUser] = useAtom(userAtom)
   const [avatar, setAvatar] = useAtom(avatarAtom)
 
   const inputFile = useRef<HTMLInputElement>(null)
@@ -61,6 +61,8 @@ export const AvatarUpload: React.FC<Props> = ({ user }) => {
       setUploading(true)
       await Storage.put(name, image)
       await saveData(name)
+
+      setAvatar(await Storage.get(name))
     } catch (e) {
       if (typeof e === 'object' && e !== null && e.hasOwnProperty('message')) {
         addToast({
@@ -104,6 +106,7 @@ export const AvatarUpload: React.FC<Props> = ({ user }) => {
           size="mini"
           type="success"
           ghost
+          loading={uploading}
           onClick={() => inputFile.current?.click()}>
           <Text b>Upload New</Text>
         </Button>
