@@ -1,13 +1,28 @@
-import { Spacer } from '@geist-ui/react'
+import { Divider, Spacer, User } from '@geist-ui/react'
+import { Storage } from 'aws-amplify'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
+import { useEffect } from 'react'
 
-import { currentProfileMenuIndexAtom } from '../../../state/atoms'
+import {
+  avatarAtom,
+  currentProfileMenuIndexAtom,
+  userAtom,
+} from '../../../state/atoms'
 import { AddGreeting } from './AddGreeting'
 import { AddLinks } from './AddLinks'
 import { EditProfile } from './EditProfile'
 
 export const Profile: React.FC = () => {
+  const [user] = useAtom(userAtom)
+  const [avatar, setAvatar] = useAtom(avatarAtom)
+
+  useEffect(() => {
+    if (!avatar && user?.avatar) {
+      Storage.get(user.avatar).then((img) => setAvatar(img))
+    }
+  }, [])
+
   const menu = [
     'Edit your profile',
     'Add social media links',
@@ -47,6 +62,16 @@ export const Profile: React.FC = () => {
             {item}
           </button>
         ))}
+        <Divider />
+        {user ? (
+          <User src={avatar} name={`${user.firstName} ${user.lastName}`}>
+            <User.Link href={`/${user.username}`}>
+              vouchedby.me/{user.username}
+            </User.Link>
+          </User>
+        ) : (
+          <div className="w-full h-10 bg-gray-400 rounded-lg animate-pulse" />
+        )}
       </div>
       <Spacer x={3} />
       <div style={{ flex: 5 }}>

@@ -10,7 +10,7 @@ import {
 } from '@geist-ui/react'
 import { API } from 'aws-amplify'
 import { useAtom } from 'jotai'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { updateUser } from '../../../graphql/mutations'
 import { userAtom } from '../../../state/atoms'
@@ -30,6 +30,12 @@ export const EditProfile: React.FC = () => {
   const bio = useInput(user?.bio ?? '')
   const [saving, setSaving] = useState(false)
   const [justSaved, setJustSaved] = useState(false)
+
+  useEffect(() => {
+    firstName.setState(user?.firstName ?? '')
+    lastName.setState(user?.lastName ?? '')
+    bio.setState(user?.bio ?? '')
+  }, [user])
 
   if (!user) {
     return (

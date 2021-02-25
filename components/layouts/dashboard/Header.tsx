@@ -1,5 +1,6 @@
-import { Button, Row, Tabs, Text } from '@geist-ui/react'
+import { Link, Row, Spacer, Tabs, Text } from '@geist-ui/react'
 import ListIcon from '@geist-ui/react-icons/list'
+import LogOutIcon from '@geist-ui/react-icons/logOut'
 import SmileIcon from '@geist-ui/react-icons/smile'
 import { Auth } from 'aws-amplify'
 import Router from 'next/router'
@@ -14,15 +15,20 @@ export const Header: React.FC<Props> = ({ tabBindings }) => {
       <div className="max-w-4xl px-5 mx-auto">
         <Row align="middle" justify="space-between" className="pt-5">
           <Text h3>✌️</Text>
-          <Button
-            type="secondary"
-            size="small"
+          <Link
+            href="#"
+            block
             onClick={async () => {
               await Auth.signOut()
               Router.push('/')
-            }}>
-            <Text b>Sign Out</Text>
-          </Button>
+            }}
+            className="flex flex-row items-center">
+            <Text b className="text-sm">
+              Sign Out
+            </Text>
+            <Spacer x={0.5} />
+            <LogOutIcon size={18} />
+          </Link>
         </Row>
       </div>
 

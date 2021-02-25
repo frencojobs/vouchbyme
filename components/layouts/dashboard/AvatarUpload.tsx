@@ -3,7 +3,7 @@ import { API, Storage } from 'aws-amplify'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { updateUser } from '../../../graphql/mutations'
@@ -25,15 +25,6 @@ export const AvatarUpload: React.FC<Props> = ({ user }) => {
 
   const inputFile = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
-
-  useEffect(() => {
-    if (!avatar && user?.avatar) {
-      setUploading(true)
-      Storage.get(user.avatar)
-        .then((img) => setAvatar(img))
-        .finally(() => setUploading(false))
-    }
-  }, [])
 
   const saveData = async (image: string) => {
     const res = (await API.graphql({
@@ -85,17 +76,20 @@ export const AvatarUpload: React.FC<Props> = ({ user }) => {
           alt="Profile picture"
           layout="fill"
           objectFit="cover"
+          className={cn({
+            hidden: uploading,
+            block: !uploading,
+          })}
         />
         <div
           className={cn(
-            'absolute items-center justify-center w-full h-full bg-gray-300',
+            'absolute items-center justify-center w-full h-full bg-gray-300 animate-pulse',
             {
               hidden: !uploading,
               flex: uploading,
             }
-          )}>
-          <Spinner size="large" />
-        </div>
+          )}
+        />
       </div>
       <Spacer />
       <div className="flex flex-col">
