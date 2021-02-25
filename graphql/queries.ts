@@ -12,19 +12,24 @@ export const getUser = /* GraphQL */ `
       lastName
       avatar
       bio
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+        owner
+      }
+      twitter
+      instagram
+      youtube
+      linkedin
+      website
+      github
+      hashnode
       createdAt
       updatedAt
-      links {
-        items {
-          id
-          owner
-          createdAt
-          name
-          url
-          updatedAt
-        }
-        nextToken
-      }
       collections {
         items {
           owner
@@ -63,11 +68,24 @@ export const listUsers = /* GraphQL */ `
         lastName
         avatar
         bio
+        greeting {
+          username
+          title
+          body
+          vouch
+          createdAt
+          updatedAt
+          owner
+        }
+        twitter
+        instagram
+        youtube
+        linkedin
+        website
+        github
+        hashnode
         createdAt
         updatedAt
-        links {
-          nextToken
-        }
         collections {
           nextToken
         }
@@ -76,32 +94,42 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-export const getLink = /* GraphQL */ `
-  query GetLink($id: ID!) {
-    getLink(id: $id) {
-      id
-      owner
+export const getGreeting = /* GraphQL */ `
+  query GetGreeting($username: String!) {
+    getGreeting(username: $username) {
+      username
+      title
+      body
+      vouch
       createdAt
-      name
-      url
       updatedAt
+      owner
     }
   }
 `;
-export const listLinks = /* GraphQL */ `
-  query ListLinks(
-    $filter: ModelLinkFilterInput
+export const listGreetings = /* GraphQL */ `
+  query ListGreetings(
+    $username: String
+    $filter: ModelGreetingFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listGreetings(
+      username: $username
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
-        id
-        owner
+        username
+        title
+        body
+        vouch
         createdAt
-        name
-        url
         updatedAt
+        owner
       }
       nextToken
     }

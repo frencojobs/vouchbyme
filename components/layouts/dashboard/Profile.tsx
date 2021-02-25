@@ -48,7 +48,7 @@ export const Profile: React.FC = () => {
           </Link>
         ))}
       </div>
-      <Spacer x={5} />
+      <Spacer x={3} />
       <div style={{ flex: 5 }}>
         <Spacer />
         {currentPage(currentMenuIndex)}

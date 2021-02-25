@@ -15,19 +15,24 @@ export const createUser = /* GraphQL */ `
       lastName
       avatar
       bio
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+        owner
+      }
+      twitter
+      instagram
+      youtube
+      linkedin
+      website
+      github
+      hashnode
       createdAt
       updatedAt
-      links {
-        items {
-          id
-          owner
-          createdAt
-          name
-          url
-          updatedAt
-        }
-        nextToken
-      }
       collections {
         items {
           owner
@@ -56,19 +61,24 @@ export const updateUser = /* GraphQL */ `
       lastName
       avatar
       bio
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+        owner
+      }
+      twitter
+      instagram
+      youtube
+      linkedin
+      website
+      github
+      hashnode
       createdAt
       updatedAt
-      links {
-        items {
-          id
-          owner
-          createdAt
-          name
-          url
-          updatedAt
-        }
-        nextToken
-      }
       collections {
         items {
           owner
@@ -97,19 +107,24 @@ export const deleteUser = /* GraphQL */ `
       lastName
       avatar
       bio
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+        owner
+      }
+      twitter
+      instagram
+      youtube
+      linkedin
+      website
+      github
+      hashnode
       createdAt
       updatedAt
-      links {
-        items {
-          id
-          owner
-          createdAt
-          name
-          url
-          updatedAt
-        }
-        nextToken
-      }
       collections {
         items {
           owner
@@ -125,48 +140,51 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
-export const createLink = /* GraphQL */ `
-  mutation CreateLink(
-    $input: CreateLinkInput!
-    $condition: ModelLinkConditionInput
+export const createGreeting = /* GraphQL */ `
+  mutation CreateGreeting(
+    $input: CreateGreetingInput!
+    $condition: ModelGreetingConditionInput
   ) {
-    createLink(input: $input, condition: $condition) {
-      id
-      owner
+    createGreeting(input: $input, condition: $condition) {
+      username
+      title
+      body
+      vouch
       createdAt
-      name
-      url
       updatedAt
+      owner
     }
   }
 `;
-export const updateLink = /* GraphQL */ `
-  mutation UpdateLink(
-    $input: UpdateLinkInput!
-    $condition: ModelLinkConditionInput
+export const updateGreeting = /* GraphQL */ `
+  mutation UpdateGreeting(
+    $input: UpdateGreetingInput!
+    $condition: ModelGreetingConditionInput
   ) {
-    updateLink(input: $input, condition: $condition) {
-      id
-      owner
+    updateGreeting(input: $input, condition: $condition) {
+      username
+      title
+      body
+      vouch
       createdAt
-      name
-      url
       updatedAt
+      owner
     }
   }
 `;
-export const deleteLink = /* GraphQL */ `
-  mutation DeleteLink(
-    $input: DeleteLinkInput!
-    $condition: ModelLinkConditionInput
+export const deleteGreeting = /* GraphQL */ `
+  mutation DeleteGreeting(
+    $input: DeleteGreetingInput!
+    $condition: ModelGreetingConditionInput
   ) {
-    deleteLink(input: $input, condition: $condition) {
-      id
-      owner
+    deleteGreeting(input: $input, condition: $condition) {
+      username
+      title
+      body
+      vouch
       createdAt
-      name
-      url
       updatedAt
+      owner
     }
   }
 `;

@@ -18,12 +18,21 @@ type User
   lastName: String
   avatar: String
   bio: String
-  links: [Link!] @connection(keyName: "byUsername", fields: ["username"])
+  greeting: Greeting
   collections: [Collection!]
     @connection(keyName: "byUsername", fields: ["username"])
+
+  # Social Links
+  twitter: String
+  instagram: String
+  youtube: String
+  linkedin: String
+  website: String
+  github: String
+  hashnode: String
 }
 
-type Link
+type Greeting
   @model
   @auth(
     rules: [
@@ -32,11 +41,11 @@ type Link
       { allow: public, operations: [read] }
     ]
   )
-  @key(name: "byUsername", fields: ["owner", "createdAt"]) {
-  owner: String
-  createdAt: AWSDateTime! @auto
-  name: String!
-  url: String!
+  @key(fields: ["username"]) {
+  username: String!
+  title: String!
+  body: String!
+  vouch: Int!
 }
 
 type Collection

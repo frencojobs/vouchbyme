@@ -12,19 +12,24 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       avatar
       bio
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+        owner
+      }
+      twitter
+      instagram
+      youtube
+      linkedin
+      website
+      github
+      hashnode
       createdAt
       updatedAt
-      links {
-        items {
-          id
-          owner
-          createdAt
-          name
-          url
-          updatedAt
-        }
-        nextToken
-      }
       collections {
         items {
           owner
@@ -50,19 +55,24 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       avatar
       bio
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+        owner
+      }
+      twitter
+      instagram
+      youtube
+      linkedin
+      website
+      github
+      hashnode
       createdAt
       updatedAt
-      links {
-        items {
-          id
-          owner
-          createdAt
-          name
-          url
-          updatedAt
-        }
-        nextToken
-      }
       collections {
         items {
           owner
@@ -88,19 +98,24 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       avatar
       bio
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+        owner
+      }
+      twitter
+      instagram
+      youtube
+      linkedin
+      website
+      github
+      hashnode
       createdAt
       updatedAt
-      links {
-        items {
-          id
-          owner
-          createdAt
-          name
-          url
-          updatedAt
-        }
-        nextToken
-      }
       collections {
         items {
           owner
@@ -116,39 +131,42 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
-export const onCreateLink = /* GraphQL */ `
-  subscription OnCreateLink {
-    onCreateLink {
-      id
-      owner
+export const onCreateGreeting = /* GraphQL */ `
+  subscription OnCreateGreeting {
+    onCreateGreeting {
+      username
+      title
+      body
+      vouch
       createdAt
-      name
-      url
       updatedAt
+      owner
     }
   }
 `;
-export const onUpdateLink = /* GraphQL */ `
-  subscription OnUpdateLink {
-    onUpdateLink {
-      id
-      owner
+export const onUpdateGreeting = /* GraphQL */ `
+  subscription OnUpdateGreeting {
+    onUpdateGreeting {
+      username
+      title
+      body
+      vouch
       createdAt
-      name
-      url
       updatedAt
+      owner
     }
   }
 `;
-export const onDeleteLink = /* GraphQL */ `
-  subscription OnDeleteLink {
-    onDeleteLink {
-      id
-      owner
+export const onDeleteGreeting = /* GraphQL */ `
+  subscription OnDeleteGreeting {
+    onDeleteGreeting {
+      username
+      title
+      body
+      vouch
       createdAt
-      name
-      url
       updatedAt
+      owner
     }
   }
 `;

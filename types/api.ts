@@ -10,6 +10,13 @@ export type CreateUserInput = {
   lastName?: string | null,
   avatar?: string | null,
   bio?: string | null,
+  twitter?: string | null,
+  instagram?: string | null,
+  youtube?: string | null,
+  linkedin?: string | null,
+  website?: string | null,
+  github?: string | null,
+  hashnode?: string | null,
 };
 
 export type ModelUserConditionInput = {
@@ -18,6 +25,13 @@ export type ModelUserConditionInput = {
   lastName?: ModelStringInput | null,
   avatar?: ModelStringInput | null,
   bio?: ModelStringInput | null,
+  twitter?: ModelStringInput | null,
+  instagram?: ModelStringInput | null,
+  youtube?: ModelStringInput | null,
+  linkedin?: ModelStringInput | null,
+  website?: ModelStringInput | null,
+  github?: ModelStringInput | null,
+  hashnode?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -72,26 +86,28 @@ export type User = {
   lastName?: string | null,
   avatar?: string | null,
   bio?: string | null,
+  greeting?: Greeting,
+  twitter?: string | null,
+  instagram?: string | null,
+  youtube?: string | null,
+  linkedin?: string | null,
+  website?: string | null,
+  github?: string | null,
+  hashnode?: string | null,
   createdAt?: string,
   updatedAt?: string,
-  links?: ModelLinkConnection,
   collections?: ModelCollectionConnection,
 };
 
-export type ModelLinkConnection = {
-  __typename: "ModelLinkConnection",
-  items?:  Array<Link | null > | null,
-  nextToken?: string | null,
-};
-
-export type Link = {
-  __typename: "Link",
-  id?: string,
-  owner?: string | null,
+export type Greeting = {
+  __typename: "Greeting",
+  username?: string,
+  title?: string,
+  body?: string,
+  vouch?: number,
   createdAt?: string,
-  name?: string,
-  url?: string,
   updatedAt?: string,
+  owner?: string | null,
 };
 
 export type ModelCollectionConnection = {
@@ -142,36 +158,56 @@ export type UpdateUserInput = {
   lastName?: string | null,
   avatar?: string | null,
   bio?: string | null,
+  twitter?: string | null,
+  instagram?: string | null,
+  youtube?: string | null,
+  linkedin?: string | null,
+  website?: string | null,
+  github?: string | null,
+  hashnode?: string | null,
 };
 
 export type DeleteUserInput = {
   username: string,
 };
 
-export type CreateLinkInput = {
-  id?: string | null,
-  owner?: string | null,
-  name: string,
-  url: string,
+export type CreateGreetingInput = {
+  username: string,
+  title: string,
+  body: string,
+  vouch: number,
 };
 
-export type ModelLinkConditionInput = {
-  createdAt?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  url?: ModelStringInput | null,
-  and?: Array< ModelLinkConditionInput | null > | null,
-  or?: Array< ModelLinkConditionInput | null > | null,
-  not?: ModelLinkConditionInput | null,
+export type ModelGreetingConditionInput = {
+  title?: ModelStringInput | null,
+  body?: ModelStringInput | null,
+  vouch?: ModelIntInput | null,
+  and?: Array< ModelGreetingConditionInput | null > | null,
+  or?: Array< ModelGreetingConditionInput | null > | null,
+  not?: ModelGreetingConditionInput | null,
 };
 
-export type UpdateLinkInput = {
-  owner?: string | null,
-  name?: string | null,
-  url?: string | null,
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
-export type DeleteLinkInput = {
-  id?: string | null,
+export type UpdateGreetingInput = {
+  username: string,
+  title?: string | null,
+  body?: string | null,
+  vouch?: number | null,
+};
+
+export type DeleteGreetingInput = {
+  username: string,
 };
 
 export type CreateCollectionInput = {
@@ -190,18 +226,6 @@ export type ModelCollectionConditionInput = {
   and?: Array< ModelCollectionConditionInput | null > | null,
   or?: Array< ModelCollectionConditionInput | null > | null,
   not?: ModelCollectionConditionInput | null,
-};
-
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
 };
 
 export type UpdateCollectionInput = {
@@ -282,6 +306,13 @@ export type ModelUserFilterInput = {
   lastName?: ModelStringInput | null,
   avatar?: ModelStringInput | null,
   bio?: ModelStringInput | null,
+  twitter?: ModelStringInput | null,
+  instagram?: ModelStringInput | null,
+  youtube?: ModelStringInput | null,
+  linkedin?: ModelStringInput | null,
+  website?: ModelStringInput | null,
+  github?: ModelStringInput | null,
+  hashnode?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -299,14 +330,20 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
-export type ModelLinkFilterInput = {
-  owner?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  url?: ModelStringInput | null,
-  and?: Array< ModelLinkFilterInput | null > | null,
-  or?: Array< ModelLinkFilterInput | null > | null,
-  not?: ModelLinkFilterInput | null,
+export type ModelGreetingFilterInput = {
+  username?: ModelStringInput | null,
+  title?: ModelStringInput | null,
+  body?: ModelStringInput | null,
+  vouch?: ModelIntInput | null,
+  and?: Array< ModelGreetingFilterInput | null > | null,
+  or?: Array< ModelGreetingFilterInput | null > | null,
+  not?: ModelGreetingFilterInput | null,
+};
+
+export type ModelGreetingConnection = {
+  __typename: "ModelGreetingConnection",
+  items?:  Array<Greeting | null > | null,
+  nextToken?: string | null,
 };
 
 export type ModelCollectionFilterInput = {
@@ -351,21 +388,25 @@ export type CreateUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    twitter?: string | null,
+    instagram?: string | null,
+    youtube?: string | null,
+    linkedin?: string | null,
+    website?: string | null,
+    github?: string | null,
+    hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
-    links?:  {
-      __typename: "ModelLinkConnection",
-      items?:  Array< {
-        __typename: "Link",
-        id: string,
-        owner?: string | null,
-        createdAt: string,
-        name: string,
-        url: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -398,21 +439,25 @@ export type UpdateUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    twitter?: string | null,
+    instagram?: string | null,
+    youtube?: string | null,
+    linkedin?: string | null,
+    website?: string | null,
+    github?: string | null,
+    hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
-    links?:  {
-      __typename: "ModelLinkConnection",
-      items?:  Array< {
-        __typename: "Link",
-        id: string,
-        owner?: string | null,
-        createdAt: string,
-        name: string,
-        url: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -445,21 +490,25 @@ export type DeleteUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    twitter?: string | null,
+    instagram?: string | null,
+    youtube?: string | null,
+    linkedin?: string | null,
+    website?: string | null,
+    github?: string | null,
+    hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
-    links?:  {
-      __typename: "ModelLinkConnection",
-      items?:  Array< {
-        __typename: "Link",
-        id: string,
-        owner?: string | null,
-        createdAt: string,
-        name: string,
-        url: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -477,54 +526,57 @@ export type DeleteUserMutation = {
   } | null,
 };
 
-export type CreateLinkMutationVariables = {
-  input?: CreateLinkInput,
-  condition?: ModelLinkConditionInput | null,
+export type CreateGreetingMutationVariables = {
+  input?: CreateGreetingInput,
+  condition?: ModelGreetingConditionInput | null,
 };
 
-export type CreateLinkMutation = {
-  createLink?:  {
-    __typename: "Link",
-    id: string,
-    owner?: string | null,
+export type CreateGreetingMutation = {
+  createGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
     createdAt: string,
-    name: string,
-    url: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type UpdateLinkMutationVariables = {
-  input?: UpdateLinkInput,
-  condition?: ModelLinkConditionInput | null,
+export type UpdateGreetingMutationVariables = {
+  input?: UpdateGreetingInput,
+  condition?: ModelGreetingConditionInput | null,
 };
 
-export type UpdateLinkMutation = {
-  updateLink?:  {
-    __typename: "Link",
-    id: string,
-    owner?: string | null,
+export type UpdateGreetingMutation = {
+  updateGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
     createdAt: string,
-    name: string,
-    url: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type DeleteLinkMutationVariables = {
-  input?: DeleteLinkInput,
-  condition?: ModelLinkConditionInput | null,
+export type DeleteGreetingMutationVariables = {
+  input?: DeleteGreetingInput,
+  condition?: ModelGreetingConditionInput | null,
 };
 
-export type DeleteLinkMutation = {
-  deleteLink?:  {
-    __typename: "Link",
-    id: string,
-    owner?: string | null,
+export type DeleteGreetingMutation = {
+  deleteGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
     createdAt: string,
-    name: string,
-    url: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -722,21 +774,25 @@ export type GetUserQuery = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    twitter?: string | null,
+    instagram?: string | null,
+    youtube?: string | null,
+    linkedin?: string | null,
+    website?: string | null,
+    github?: string | null,
+    hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
-    links?:  {
-      __typename: "ModelLinkConnection",
-      items?:  Array< {
-        __typename: "Link",
-        id: string,
-        owner?: string | null,
-        createdAt: string,
-        name: string,
-        url: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -774,12 +830,25 @@ export type ListUsersQuery = {
       lastName?: string | null,
       avatar?: string | null,
       bio?: string | null,
+      greeting?:  {
+        __typename: "Greeting",
+        username: string,
+        title: string,
+        body: string,
+        vouch: number,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      twitter?: string | null,
+      instagram?: string | null,
+      youtube?: string | null,
+      linkedin?: string | null,
+      website?: string | null,
+      github?: string | null,
+      hashnode?: string | null,
       createdAt: string,
       updatedAt: string,
-      links?:  {
-        __typename: "ModelLinkConnection",
-        nextToken?: string | null,
-      } | null,
       collections?:  {
         __typename: "ModelCollectionConnection",
         nextToken?: string | null,
@@ -789,39 +858,43 @@ export type ListUsersQuery = {
   } | null,
 };
 
-export type GetLinkQueryVariables = {
-  id?: string,
+export type GetGreetingQueryVariables = {
+  username?: string,
 };
 
-export type GetLinkQuery = {
-  getLink?:  {
-    __typename: "Link",
-    id: string,
-    owner?: string | null,
+export type GetGreetingQuery = {
+  getGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
     createdAt: string,
-    name: string,
-    url: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type ListLinksQueryVariables = {
-  filter?: ModelLinkFilterInput | null,
+export type ListGreetingsQueryVariables = {
+  username?: string | null,
+  filter?: ModelGreetingFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
-export type ListLinksQuery = {
-  listLinks?:  {
-    __typename: "ModelLinkConnection",
+export type ListGreetingsQuery = {
+  listGreetings?:  {
+    __typename: "ModelGreetingConnection",
     items?:  Array< {
-      __typename: "Link",
-      id: string,
-      owner?: string | null,
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
       createdAt: string,
-      name: string,
-      url: string,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -950,21 +1023,25 @@ export type OnCreateUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    twitter?: string | null,
+    instagram?: string | null,
+    youtube?: string | null,
+    linkedin?: string | null,
+    website?: string | null,
+    github?: string | null,
+    hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
-    links?:  {
-      __typename: "ModelLinkConnection",
-      items?:  Array< {
-        __typename: "Link",
-        id: string,
-        owner?: string | null,
-        createdAt: string,
-        name: string,
-        url: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -992,21 +1069,25 @@ export type OnUpdateUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    twitter?: string | null,
+    instagram?: string | null,
+    youtube?: string | null,
+    linkedin?: string | null,
+    website?: string | null,
+    github?: string | null,
+    hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
-    links?:  {
-      __typename: "ModelLinkConnection",
-      items?:  Array< {
-        __typename: "Link",
-        id: string,
-        owner?: string | null,
-        createdAt: string,
-        name: string,
-        url: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -1034,21 +1115,25 @@ export type OnDeleteUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    twitter?: string | null,
+    instagram?: string | null,
+    youtube?: string | null,
+    linkedin?: string | null,
+    website?: string | null,
+    github?: string | null,
+    hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
-    links?:  {
-      __typename: "ModelLinkConnection",
-      items?:  Array< {
-        __typename: "Link",
-        id: string,
-        owner?: string | null,
-        createdAt: string,
-        name: string,
-        url: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -1066,39 +1151,42 @@ export type OnDeleteUserSubscription = {
   } | null,
 };
 
-export type OnCreateLinkSubscription = {
-  onCreateLink?:  {
-    __typename: "Link",
-    id: string,
-    owner?: string | null,
+export type OnCreateGreetingSubscription = {
+  onCreateGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
     createdAt: string,
-    name: string,
-    url: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnUpdateLinkSubscription = {
-  onUpdateLink?:  {
-    __typename: "Link",
-    id: string,
-    owner?: string | null,
+export type OnUpdateGreetingSubscription = {
+  onUpdateGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
     createdAt: string,
-    name: string,
-    url: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnDeleteLinkSubscription = {
-  onDeleteLink?:  {
-    __typename: "Link",
-    id: string,
-    owner?: string | null,
+export type OnDeleteGreetingSubscription = {
+  onDeleteGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
     createdAt: string,
-    name: string,
-    url: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
