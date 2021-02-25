@@ -39,55 +39,57 @@ export const AddGreeting: React.FC = () => {
     )
   } else {
     const savePost = async () => {
-      try {
-        setSaving(true)
-        let data: Greeting | null = null
-        if (user.greeting === null) {
-          const res = (await API.graphql({
-            query: createGreeting,
-            variables: {
-              input: {
-                username: user.username,
-                title: title.state,
-                body: body.state,
-                vouch: 1,
-              },
-            } as CreateGreetingMutationVariables,
-          })) as { data: CreateGreetingMutation }
+      if (title.state && body.state) {
+        try {
+          setSaving(true)
+          let data: Greeting | null = null
+          if (user.greeting === null) {
+            const res = (await API.graphql({
+              query: createGreeting,
+              variables: {
+                input: {
+                  username: user.username,
+                  title: title.state,
+                  body: body.state,
+                  vouch: 1,
+                },
+              } as CreateGreetingMutationVariables,
+            })) as { data: CreateGreetingMutation }
 
-          data = res.data.createGreeting as Greeting
-        } else {
-          const res = (await API.graphql({
-            query: updateGreeting,
-            variables: {
-              input: {
-                username: user.username,
-                title: title.state,
-                body: body.state,
-              },
-            } as UpdateGreetingMutationVariables,
-          })) as { data: UpdateGreetingMutation }
-          data = res.data.updateGreeting as Greeting
+            data = res.data.createGreeting as Greeting
+          } else {
+            const res = (await API.graphql({
+              query: updateGreeting,
+              variables: {
+                input: {
+                  username: user.username,
+                  title: title.state,
+                  body: body.state,
+                },
+              } as UpdateGreetingMutationVariables,
+            })) as { data: UpdateGreetingMutation }
+            data = res.data.updateGreeting as Greeting
 
-          setUser({ ...user, greeting: data })
+            setUser({ ...user, greeting: data })
+          }
+        } catch (e) {
+          if (
+            typeof e === 'object' &&
+            e !== null &&
+            e.hasOwnProperty('message')
+          ) {
+            addToast({
+              type: 'error',
+              text: e.message,
+            })
+          } else {
+            console.error(e)
+          }
+        } finally {
+          setSaving(false)
+          setJustSaved(true)
+          setTimeout(() => setJustSaved(false), 1000)
         }
-      } catch (e) {
-        if (
-          typeof e === 'object' &&
-          e !== null &&
-          e.hasOwnProperty('message')
-        ) {
-          addToast({
-            type: 'error',
-            text: e.message,
-          })
-        } else {
-          console.error(e)
-        }
-      } finally {
-        setSaving(false)
-        setJustSaved(true)
-        setTimeout(() => setJustSaved(false), 1000)
       }
     }
 
@@ -105,7 +107,7 @@ export const AddGreeting: React.FC = () => {
           is also the only post you can post that is not a vouching collection.
         </Note>
         <Spacer />
-        <Input size="large" {...title.bindings}>
+        <Input size="large" {...title.bindings} placeholder="Hello">
           Title
         </Input>
         <Spacer />

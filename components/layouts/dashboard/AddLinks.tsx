@@ -19,6 +19,7 @@ import {
   UpdateUserMutationVariables,
   User,
 } from '../../../types/api'
+import { falsyToNull } from '../../../utils/falsyToNull'
 
 export const AddLinks: React.FC = () => {
   const [, addToast] = useToasts()
@@ -52,13 +53,13 @@ export const AddLinks: React.FC = () => {
               id: user.id,
               username: user.username,
               //
-              twitter: twitter.state,
-              instagram: instagram.state,
-              youtube: youtube.state,
-              linkedin: linkedin.state,
-              website: website.state,
-              github: github.state,
-              hashnode: hashnode.state,
+              twitter: falsyToNull(twitter.state),
+              instagram: falsyToNull(instagram.state),
+              youtube: falsyToNull(youtube.state),
+              linkedin: falsyToNull(linkedin.state),
+              website: falsyToNull(website.state),
+              github: falsyToNull(github.state),
+              hashnode: falsyToNull(hashnode.state),
             },
           } as UpdateUserMutationVariables,
         })) as { data: UpdateUserMutation }

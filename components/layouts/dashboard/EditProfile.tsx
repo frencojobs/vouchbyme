@@ -19,6 +19,7 @@ import {
   UpdateUserMutationVariables,
   User,
 } from '../../../types/api'
+import { falsyToNull } from '../../../utils/falsyToNull'
 import { AvatarUpload } from './AvatarUpload'
 
 export const EditProfile: React.FC = () => {
@@ -46,9 +47,9 @@ export const EditProfile: React.FC = () => {
             input: {
               id: user.id,
               username: user.username,
-              firstName: firstName.state,
-              lastName: lastName.state,
-              bio: bio.state,
+              firstName: falsyToNull(firstName.state),
+              lastName: falsyToNull(lastName.state),
+              bio: falsyToNull(bio.state),
             },
           } as UpdateUserMutationVariables,
         })) as { data: UpdateUserMutation }
