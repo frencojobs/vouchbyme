@@ -35,7 +35,7 @@ export const getUser = /* GraphQL */ `
           createdAt
           id
           title
-          vouchFor
+          layout
           vouch
           updatedAt
         }
@@ -138,7 +138,7 @@ export const getCollection = /* GraphQL */ `
       createdAt
       id
       title
-      vouchFor
+      layout
       vouch
       updatedAt
       posts {
@@ -173,7 +173,7 @@ export const listCollections = /* GraphQL */ `
         createdAt
         id
         title
-        vouchFor
+        layout
         vouch
         updatedAt
         posts {

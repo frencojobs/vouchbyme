@@ -14,15 +14,6 @@ import { AddLinks } from './AddLinks'
 import { EditProfile } from './EditProfile'
 
 export const Profile: React.FC = () => {
-  const [user] = useAtom(userAtom)
-  const [avatar, setAvatar] = useAtom(avatarAtom)
-
-  useEffect(() => {
-    if (!avatar && user?.avatar) {
-      Storage.get(user.avatar).then((img) => setAvatar(img))
-    }
-  }, [])
-
   const menu = [
     'Edit your profile',
     'Add social media links',
@@ -31,6 +22,14 @@ export const Profile: React.FC = () => {
   const [currentMenuIndex, setCurrentMenuIndex] = useAtom(
     currentProfileMenuIndexAtom
   )
+  const [user] = useAtom(userAtom)
+  const [avatar, setAvatar] = useAtom(avatarAtom)
+
+  useEffect(() => {
+    if (!avatar && user?.avatar) {
+      Storage.get(user.avatar).then((img) => setAvatar(img))
+    }
+  }, [])
 
   const currentPage = (i: number) => {
     if (i === 0) {
@@ -70,7 +69,7 @@ export const Profile: React.FC = () => {
             </User.Link>
           </User>
         ) : (
-          <div className="w-full h-10 bg-gray-400 rounded-lg animate-pulse" />
+          <div className="w-full h-10 bg-gray-200 rounded-lg animate-pulse" />
         )}
       </div>
       <Spacer x={3} />

@@ -62,7 +62,7 @@ type Collection
   createdAt: AWSDateTime! @auto
   id: ID!
   title: String!
-  vouchFor: String
+  layout: String
   posts: [Post!] @connection(keyName: "byCollection", fields: ["id"])
   vouch: Int!
 }

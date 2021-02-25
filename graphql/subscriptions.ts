@@ -35,7 +35,7 @@ export const onCreateUser = /* GraphQL */ `
           createdAt
           id
           title
-          vouchFor
+          layout
           vouch
           updatedAt
         }
@@ -77,7 +77,7 @@ export const onUpdateUser = /* GraphQL */ `
           createdAt
           id
           title
-          vouchFor
+          layout
           vouch
           updatedAt
         }
@@ -119,7 +119,7 @@ export const onDeleteUser = /* GraphQL */ `
           createdAt
           id
           title
-          vouchFor
+          layout
           vouch
           updatedAt
         }
@@ -171,7 +171,7 @@ export const onCreateCollection = /* GraphQL */ `
       createdAt
       id
       title
-      vouchFor
+      layout
       vouch
       updatedAt
       posts {
@@ -201,7 +201,7 @@ export const onUpdateCollection = /* GraphQL */ `
       createdAt
       id
       title
-      vouchFor
+      layout
       vouch
       updatedAt
       posts {
@@ -231,7 +231,7 @@ export const onDeleteCollection = /* GraphQL */ `
       createdAt
       id
       title
-      vouchFor
+      layout
       vouch
       updatedAt
       posts {

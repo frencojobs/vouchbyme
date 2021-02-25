@@ -117,6 +117,8 @@ export const AddGreeting: React.FC = () => {
         <Textarea
           name="Bio"
           width="100%"
+          minHeight="11rem"
+          resize="vertical"
           placeholder="Tell people about you, probably more specifically than a bio"
           className="text-base"
           {...body.bindings}

@@ -90,7 +90,7 @@ export const AddLinks: React.FC = () => {
         <Text h3 b>
           Add Links
         </Text>
-        <Spacer />
+        <Spacer y={2} />
 
         <div className="flex flex-col md:flex-row">
           <Input
