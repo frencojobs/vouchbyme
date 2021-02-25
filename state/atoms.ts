@@ -12,3 +12,4 @@ export const userAtom = atom<User | null>(null)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const avatarAtom = atom<any>(null)
 export const currentProfileMenuIndexAtom = atom<number>(0)
+export const currentCollectionsMenuIndexAtom = atom<number>(0)

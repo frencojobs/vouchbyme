@@ -4,6 +4,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import { useEffect, useState } from 'react'
 
 import { DashboardLayout } from '../components/layouts/dashboard'
+import { Collections } from '../components/layouts/dashboard/Collections'
 import { Profile } from '../components/layouts/dashboard/Profile'
 import { getUser } from '../graphql/queries'
 import { userAtom } from '../state/atoms'
@@ -37,7 +38,7 @@ const DashboardPage: NextPage<Props> = ({ username }) => {
           case 'profile':
             return <Profile />
           case 'collections':
-            return 'collections'
+            return <Collections />
         }
       })()}
     </DashboardLayout>
