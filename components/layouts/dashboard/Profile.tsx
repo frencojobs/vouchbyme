@@ -1,4 +1,4 @@
-import { Dot, Spacer } from '@geist-ui/react'
+import { Dot, Link, Spacer } from '@geist-ui/react'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
 
@@ -32,19 +32,23 @@ export const Profile: React.FC = () => {
       <div style={{ flex: 2 }} className="flex flex-col">
         <Spacer />
         {menu.map((item, index) => (
-          <div
+          <Link
+            href="#"
             key={item}
             onClick={() => setCurrentMenuIndex(index)}
-            className={cn('flex flex-row py-2 cursor-pointer select-none', {
-              'font-bold': index === currentMenuIndex,
-            })}>
-            <Dot type={index === currentMenuIndex ? 'success' : 'default'} />
+            className={cn(
+              'flex w-full flex-row py-2 cursor-pointer select-none text-black',
+              {
+                'font-bold': index === currentMenuIndex,
+              }
+            )}
+            block>
             <Spacer x={0.5} />
             {item}
-          </div>
+          </Link>
         ))}
       </div>
-      <Spacer />
+      <Spacer x={5} />
       <div style={{ flex: 5 }}>
         <Spacer />
         {currentPage(currentMenuIndex)}

@@ -88,7 +88,7 @@ export const EditProfile: React.FC = () => {
           Edit Profile
         </Text>
         <Spacer />
-        <AvatarUpload />
+        <AvatarUpload user={user} />
         <Spacer y={2} />
         <div className="flex flex-col md:flex-row">
           <Input size="large" width="100%" {...firstName.bindings}>

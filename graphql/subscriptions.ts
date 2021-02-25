@@ -12,12 +12,19 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      links {
-        type
-        url
-      }
       createdAt
       updatedAt
+      links {
+        items {
+          id
+          owner
+          createdAt
+          name
+          url
+          updatedAt
+        }
+        nextToken
+      }
       collections {
         items {
           owner
@@ -43,12 +50,19 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      links {
-        type
-        url
-      }
       createdAt
       updatedAt
+      links {
+        items {
+          id
+          owner
+          createdAt
+          name
+          url
+          updatedAt
+        }
+        nextToken
+      }
       collections {
         items {
           owner
@@ -74,12 +88,19 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      links {
-        type
-        url
-      }
       createdAt
       updatedAt
+      links {
+        items {
+          id
+          owner
+          createdAt
+          name
+          url
+          updatedAt
+        }
+        nextToken
+      }
       collections {
         items {
           owner
@@ -92,6 +113,42 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+    }
+  }
+`;
+export const onCreateLink = /* GraphQL */ `
+  subscription OnCreateLink {
+    onCreateLink {
+      id
+      owner
+      createdAt
+      name
+      url
+      updatedAt
+    }
+  }
+`;
+export const onUpdateLink = /* GraphQL */ `
+  subscription OnUpdateLink {
+    onUpdateLink {
+      id
+      owner
+      createdAt
+      name
+      url
+      updatedAt
+    }
+  }
+`;
+export const onDeleteLink = /* GraphQL */ `
+  subscription OnDeleteLink {
+    onDeleteLink {
+      id
+      owner
+      createdAt
+      name
+      url
+      updatedAt
     }
   }
 `;

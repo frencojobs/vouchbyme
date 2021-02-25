@@ -15,12 +15,19 @@ export const createUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      links {
-        type
-        url
-      }
       createdAt
       updatedAt
+      links {
+        items {
+          id
+          owner
+          createdAt
+          name
+          url
+          updatedAt
+        }
+        nextToken
+      }
       collections {
         items {
           owner
@@ -49,12 +56,19 @@ export const updateUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      links {
-        type
-        url
-      }
       createdAt
       updatedAt
+      links {
+        items {
+          id
+          owner
+          createdAt
+          name
+          url
+          updatedAt
+        }
+        nextToken
+      }
       collections {
         items {
           owner
@@ -83,12 +97,19 @@ export const deleteUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      links {
-        type
-        url
-      }
       createdAt
       updatedAt
+      links {
+        items {
+          id
+          owner
+          createdAt
+          name
+          url
+          updatedAt
+        }
+        nextToken
+      }
       collections {
         items {
           owner
@@ -101,6 +122,51 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+    }
+  }
+`;
+export const createLink = /* GraphQL */ `
+  mutation CreateLink(
+    $input: CreateLinkInput!
+    $condition: ModelLinkConditionInput
+  ) {
+    createLink(input: $input, condition: $condition) {
+      id
+      owner
+      createdAt
+      name
+      url
+      updatedAt
+    }
+  }
+`;
+export const updateLink = /* GraphQL */ `
+  mutation UpdateLink(
+    $input: UpdateLinkInput!
+    $condition: ModelLinkConditionInput
+  ) {
+    updateLink(input: $input, condition: $condition) {
+      id
+      owner
+      createdAt
+      name
+      url
+      updatedAt
+    }
+  }
+`;
+export const deleteLink = /* GraphQL */ `
+  mutation DeleteLink(
+    $input: DeleteLinkInput!
+    $condition: ModelLinkConditionInput
+  ) {
+    deleteLink(input: $input, condition: $condition) {
+      id
+      owner
+      createdAt
+      name
+      url
+      updatedAt
     }
   }
 `;

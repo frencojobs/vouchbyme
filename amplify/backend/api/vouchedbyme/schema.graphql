@@ -18,13 +18,24 @@ type User
   lastName: String
   avatar: String
   bio: String
-  links: [Link!]
+  links: [Link!] @connection(keyName: "byUsername", fields: ["username"])
   collections: [Collection!]
     @connection(keyName: "byUsername", fields: ["username"])
 }
 
-type Link {
-  type: String!
+type Link
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  )
+  @key(name: "byUsername", fields: ["owner", "createdAt"]) {
+  owner: String
+  createdAt: AWSDateTime! @auto
+  name: String!
   url: String!
 }
 

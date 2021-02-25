@@ -12,12 +12,19 @@ export const getUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      links {
-        type
-        url
-      }
       createdAt
       updatedAt
+      links {
+        items {
+          id
+          owner
+          createdAt
+          name
+          url
+          updatedAt
+        }
+        nextToken
+      }
       collections {
         items {
           owner
@@ -56,15 +63,45 @@ export const listUsers = /* GraphQL */ `
         lastName
         avatar
         bio
-        links {
-          type
-          url
-        }
         createdAt
         updatedAt
+        links {
+          nextToken
+        }
         collections {
           nextToken
         }
+      }
+      nextToken
+    }
+  }
+`;
+export const getLink = /* GraphQL */ `
+  query GetLink($id: ID!) {
+    getLink(id: $id) {
+      id
+      owner
+      createdAt
+      name
+      url
+      updatedAt
+    }
+  }
+`;
+export const listLinks = /* GraphQL */ `
+  query ListLinks(
+    $filter: ModelLinkFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        owner
+        createdAt
+        name
+        url
+        updatedAt
       }
       nextToken
     }

@@ -10,12 +10,6 @@ export type CreateUserInput = {
   lastName?: string | null,
   avatar?: string | null,
   bio?: string | null,
-  links?: Array< LinkInput > | null,
-};
-
-export type LinkInput = {
-  type: string,
-  url: string,
 };
 
 export type ModelUserConditionInput = {
@@ -78,16 +72,26 @@ export type User = {
   lastName?: string | null,
   avatar?: string | null,
   bio?: string | null,
-  links?:  Array<Link > | null,
   createdAt?: string,
   updatedAt?: string,
+  links?: ModelLinkConnection,
   collections?: ModelCollectionConnection,
+};
+
+export type ModelLinkConnection = {
+  __typename: "ModelLinkConnection",
+  items?:  Array<Link | null > | null,
+  nextToken?: string | null,
 };
 
 export type Link = {
   __typename: "Link",
-  type?: string,
+  id?: string,
+  owner?: string | null,
+  createdAt?: string,
+  name?: string,
   url?: string,
+  updatedAt?: string,
 };
 
 export type ModelCollectionConnection = {
@@ -138,11 +142,36 @@ export type UpdateUserInput = {
   lastName?: string | null,
   avatar?: string | null,
   bio?: string | null,
-  links?: Array< LinkInput > | null,
 };
 
 export type DeleteUserInput = {
   username: string,
+};
+
+export type CreateLinkInput = {
+  id?: string | null,
+  owner?: string | null,
+  name: string,
+  url: string,
+};
+
+export type ModelLinkConditionInput = {
+  createdAt?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  url?: ModelStringInput | null,
+  and?: Array< ModelLinkConditionInput | null > | null,
+  or?: Array< ModelLinkConditionInput | null > | null,
+  not?: ModelLinkConditionInput | null,
+};
+
+export type UpdateLinkInput = {
+  owner?: string | null,
+  name?: string | null,
+  url?: string | null,
+};
+
+export type DeleteLinkInput = {
+  id?: string | null,
 };
 
 export type CreateCollectionInput = {
@@ -270,6 +299,16 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
+export type ModelLinkFilterInput = {
+  owner?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  url?: ModelStringInput | null,
+  and?: Array< ModelLinkFilterInput | null > | null,
+  or?: Array< ModelLinkFilterInput | null > | null,
+  not?: ModelLinkFilterInput | null,
+};
+
 export type ModelCollectionFilterInput = {
   owner?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
@@ -312,13 +351,21 @@ export type CreateUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    links?:  Array< {
-      __typename: "Link",
-      type: string,
-      url: string,
-    } > | null,
     createdAt: string,
     updatedAt: string,
+    links?:  {
+      __typename: "ModelLinkConnection",
+      items?:  Array< {
+        __typename: "Link",
+        id: string,
+        owner?: string | null,
+        createdAt: string,
+        name: string,
+        url: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -351,13 +398,21 @@ export type UpdateUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    links?:  Array< {
-      __typename: "Link",
-      type: string,
-      url: string,
-    } > | null,
     createdAt: string,
     updatedAt: string,
+    links?:  {
+      __typename: "ModelLinkConnection",
+      items?:  Array< {
+        __typename: "Link",
+        id: string,
+        owner?: string | null,
+        createdAt: string,
+        name: string,
+        url: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -390,13 +445,21 @@ export type DeleteUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    links?:  Array< {
-      __typename: "Link",
-      type: string,
-      url: string,
-    } > | null,
     createdAt: string,
     updatedAt: string,
+    links?:  {
+      __typename: "ModelLinkConnection",
+      items?:  Array< {
+        __typename: "Link",
+        id: string,
+        owner?: string | null,
+        createdAt: string,
+        name: string,
+        url: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -411,6 +474,57 @@ export type DeleteUserMutation = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+  } | null,
+};
+
+export type CreateLinkMutationVariables = {
+  input?: CreateLinkInput,
+  condition?: ModelLinkConditionInput | null,
+};
+
+export type CreateLinkMutation = {
+  createLink?:  {
+    __typename: "Link",
+    id: string,
+    owner?: string | null,
+    createdAt: string,
+    name: string,
+    url: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateLinkMutationVariables = {
+  input?: UpdateLinkInput,
+  condition?: ModelLinkConditionInput | null,
+};
+
+export type UpdateLinkMutation = {
+  updateLink?:  {
+    __typename: "Link",
+    id: string,
+    owner?: string | null,
+    createdAt: string,
+    name: string,
+    url: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteLinkMutationVariables = {
+  input?: DeleteLinkInput,
+  condition?: ModelLinkConditionInput | null,
+};
+
+export type DeleteLinkMutation = {
+  deleteLink?:  {
+    __typename: "Link",
+    id: string,
+    owner?: string | null,
+    createdAt: string,
+    name: string,
+    url: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -608,13 +722,21 @@ export type GetUserQuery = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    links?:  Array< {
-      __typename: "Link",
-      type: string,
-      url: string,
-    } > | null,
     createdAt: string,
     updatedAt: string,
+    links?:  {
+      __typename: "ModelLinkConnection",
+      items?:  Array< {
+        __typename: "Link",
+        id: string,
+        owner?: string | null,
+        createdAt: string,
+        name: string,
+        url: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -652,17 +774,54 @@ export type ListUsersQuery = {
       lastName?: string | null,
       avatar?: string | null,
       bio?: string | null,
-      links?:  Array< {
-        __typename: "Link",
-        type: string,
-        url: string,
-      } > | null,
       createdAt: string,
       updatedAt: string,
+      links?:  {
+        __typename: "ModelLinkConnection",
+        nextToken?: string | null,
+      } | null,
       collections?:  {
         __typename: "ModelCollectionConnection",
         nextToken?: string | null,
       } | null,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetLinkQueryVariables = {
+  id?: string,
+};
+
+export type GetLinkQuery = {
+  getLink?:  {
+    __typename: "Link",
+    id: string,
+    owner?: string | null,
+    createdAt: string,
+    name: string,
+    url: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListLinksQueryVariables = {
+  filter?: ModelLinkFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListLinksQuery = {
+  listLinks?:  {
+    __typename: "ModelLinkConnection",
+    items?:  Array< {
+      __typename: "Link",
+      id: string,
+      owner?: string | null,
+      createdAt: string,
+      name: string,
+      url: string,
+      updatedAt: string,
     } | null > | null,
     nextToken?: string | null,
   } | null,
@@ -791,13 +950,21 @@ export type OnCreateUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    links?:  Array< {
-      __typename: "Link",
-      type: string,
-      url: string,
-    } > | null,
     createdAt: string,
     updatedAt: string,
+    links?:  {
+      __typename: "ModelLinkConnection",
+      items?:  Array< {
+        __typename: "Link",
+        id: string,
+        owner?: string | null,
+        createdAt: string,
+        name: string,
+        url: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -825,13 +992,21 @@ export type OnUpdateUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    links?:  Array< {
-      __typename: "Link",
-      type: string,
-      url: string,
-    } > | null,
     createdAt: string,
     updatedAt: string,
+    links?:  {
+      __typename: "ModelLinkConnection",
+      items?:  Array< {
+        __typename: "Link",
+        id: string,
+        owner?: string | null,
+        createdAt: string,
+        name: string,
+        url: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -859,13 +1034,21 @@ export type OnDeleteUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    links?:  Array< {
-      __typename: "Link",
-      type: string,
-      url: string,
-    } > | null,
     createdAt: string,
     updatedAt: string,
+    links?:  {
+      __typename: "ModelLinkConnection",
+      items?:  Array< {
+        __typename: "Link",
+        id: string,
+        owner?: string | null,
+        createdAt: string,
+        name: string,
+        url: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -880,6 +1063,42 @@ export type OnDeleteUserSubscription = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+  } | null,
+};
+
+export type OnCreateLinkSubscription = {
+  onCreateLink?:  {
+    __typename: "Link",
+    id: string,
+    owner?: string | null,
+    createdAt: string,
+    name: string,
+    url: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateLinkSubscription = {
+  onUpdateLink?:  {
+    __typename: "Link",
+    id: string,
+    owner?: string | null,
+    createdAt: string,
+    name: string,
+    url: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteLinkSubscription = {
+  onDeleteLink?:  {
+    __typename: "Link",
+    id: string,
+    owner?: string | null,
+    createdAt: string,
+    name: string,
+    url: string,
+    updatedAt: string,
   } | null,
 };
 
