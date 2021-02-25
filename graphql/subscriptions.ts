@@ -12,15 +12,6 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      greeting {
-        username
-        title
-        body
-        vouch
-        createdAt
-        updatedAt
-        owner
-      }
       twitter
       instagram
       youtube
@@ -30,6 +21,14 @@ export const onCreateUser = /* GraphQL */ `
       hashnode
       createdAt
       updatedAt
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+      }
       collections {
         items {
           owner
@@ -55,15 +54,6 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      greeting {
-        username
-        title
-        body
-        vouch
-        createdAt
-        updatedAt
-        owner
-      }
       twitter
       instagram
       youtube
@@ -73,6 +63,14 @@ export const onUpdateUser = /* GraphQL */ `
       hashnode
       createdAt
       updatedAt
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+      }
       collections {
         items {
           owner
@@ -98,15 +96,6 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      greeting {
-        username
-        title
-        body
-        vouch
-        createdAt
-        updatedAt
-        owner
-      }
       twitter
       instagram
       youtube
@@ -116,6 +105,14 @@ export const onDeleteUser = /* GraphQL */ `
       hashnode
       createdAt
       updatedAt
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+      }
       collections {
         items {
           owner
@@ -140,7 +137,6 @@ export const onCreateGreeting = /* GraphQL */ `
       vouch
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -153,7 +149,6 @@ export const onUpdateGreeting = /* GraphQL */ `
       vouch
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -166,7 +161,6 @@ export const onDeleteGreeting = /* GraphQL */ `
       vouch
       createdAt
       updatedAt
-      owner
     }
   }
 `;

@@ -15,15 +15,6 @@ export const createUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      greeting {
-        username
-        title
-        body
-        vouch
-        createdAt
-        updatedAt
-        owner
-      }
       twitter
       instagram
       youtube
@@ -33,6 +24,14 @@ export const createUser = /* GraphQL */ `
       hashnode
       createdAt
       updatedAt
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+      }
       collections {
         items {
           owner
@@ -61,15 +60,6 @@ export const updateUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      greeting {
-        username
-        title
-        body
-        vouch
-        createdAt
-        updatedAt
-        owner
-      }
       twitter
       instagram
       youtube
@@ -79,6 +69,14 @@ export const updateUser = /* GraphQL */ `
       hashnode
       createdAt
       updatedAt
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+      }
       collections {
         items {
           owner
@@ -107,15 +105,6 @@ export const deleteUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      greeting {
-        username
-        title
-        body
-        vouch
-        createdAt
-        updatedAt
-        owner
-      }
       twitter
       instagram
       youtube
@@ -125,6 +114,14 @@ export const deleteUser = /* GraphQL */ `
       hashnode
       createdAt
       updatedAt
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+      }
       collections {
         items {
           owner
@@ -152,7 +149,6 @@ export const createGreeting = /* GraphQL */ `
       vouch
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -168,7 +164,6 @@ export const updateGreeting = /* GraphQL */ `
       vouch
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -184,7 +179,6 @@ export const deleteGreeting = /* GraphQL */ `
       vouch
       createdAt
       updatedAt
-      owner
     }
   }
 `;

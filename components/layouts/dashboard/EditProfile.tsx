@@ -10,7 +10,7 @@ import {
 } from '@geist-ui/react'
 import { API } from 'aws-amplify'
 import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { updateUser } from '../../../graphql/mutations'
 import { userAtom } from '../../../state/atoms'
@@ -24,19 +24,11 @@ import { AvatarUpload } from './AvatarUpload'
 export const EditProfile: React.FC = () => {
   const [user, setUser] = useAtom(userAtom)
   const [, addToast] = useToasts()
-
-  const firstName = useInput('')
-  const lastName = useInput('')
-  const bio = useInput('')
-
+  const firstName = useInput(user?.firstName ?? '')
+  const lastName = useInput(user?.lastName ?? '')
+  const bio = useInput(user?.bio ?? '')
   const [saving, setSaving] = useState(false)
   const [justSaved, setJustSaved] = useState(false)
-
-  useEffect(() => {
-    firstName.setState(user?.firstName ?? '')
-    lastName.setState(user?.lastName ?? '')
-    bio.setState(user?.bio ?? '')
-  }, [user])
 
   if (!user) {
     return (

@@ -1,8 +1,9 @@
-import { Dot, Link, Spacer } from '@geist-ui/react'
+import { Spacer } from '@geist-ui/react'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
 
 import { currentProfileMenuIndexAtom } from '../../../state/atoms'
+import { AddGreeting } from './AddGreeting'
 import { AddLinks } from './AddLinks'
 import { EditProfile } from './EditProfile'
 
@@ -12,7 +13,6 @@ export const Profile: React.FC = () => {
     'Add social media links',
     'Add greeting post',
   ]
-
   const [currentMenuIndex, setCurrentMenuIndex] = useAtom(
     currentProfileMenuIndexAtom
   )
@@ -23,7 +23,7 @@ export const Profile: React.FC = () => {
     } else if (i === 1) {
       return <AddLinks />
     } else {
-      return <>woo</>
+      return <AddGreeting />
     }
   }
 
@@ -32,20 +32,20 @@ export const Profile: React.FC = () => {
       <div style={{ flex: 2 }} className="flex flex-col">
         <Spacer />
         {menu.map((item, index) => (
-          <Link
-            href="#"
+          <button
             key={item}
             onClick={() => setCurrentMenuIndex(index)}
             className={cn(
-              'flex w-full flex-row py-2 cursor-pointer select-none text-black',
+              'flex w-full flex-row py-2 my-1 cursor-pointer rounded-lg select-none text-black appearance-none border-none transition-all ease-in duration-100',
               {
-                'font-bold': index === currentMenuIndex,
+                'font-bold bg-blue-100 text-blue-500':
+                  index === currentMenuIndex,
+                'font-normal bg-white': index !== currentMenuIndex,
               }
-            )}
-            block>
+            )}>
             <Spacer x={0.5} />
             {item}
-          </Link>
+          </button>
         ))}
       </div>
       <Spacer x={3} />

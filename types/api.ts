@@ -86,7 +86,6 @@ export type User = {
   lastName?: string | null,
   avatar?: string | null,
   bio?: string | null,
-  greeting?: Greeting,
   twitter?: string | null,
   instagram?: string | null,
   youtube?: string | null,
@@ -96,6 +95,7 @@ export type User = {
   hashnode?: string | null,
   createdAt?: string,
   updatedAt?: string,
+  greeting?: Greeting,
   collections?: ModelCollectionConnection,
 };
 
@@ -107,7 +107,6 @@ export type Greeting = {
   vouch?: number,
   createdAt?: string,
   updatedAt?: string,
-  owner?: string | null,
 };
 
 export type ModelCollectionConnection = {
@@ -388,16 +387,6 @@ export type CreateUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    greeting?:  {
-      __typename: "Greeting",
-      username: string,
-      title: string,
-      body: string,
-      vouch: number,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null,
     twitter?: string | null,
     instagram?: string | null,
     youtube?: string | null,
@@ -407,6 +396,15 @@ export type CreateUserMutation = {
     hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -439,16 +437,6 @@ export type UpdateUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    greeting?:  {
-      __typename: "Greeting",
-      username: string,
-      title: string,
-      body: string,
-      vouch: number,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null,
     twitter?: string | null,
     instagram?: string | null,
     youtube?: string | null,
@@ -458,6 +446,15 @@ export type UpdateUserMutation = {
     hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -490,16 +487,6 @@ export type DeleteUserMutation = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    greeting?:  {
-      __typename: "Greeting",
-      username: string,
-      title: string,
-      body: string,
-      vouch: number,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null,
     twitter?: string | null,
     instagram?: string | null,
     youtube?: string | null,
@@ -509,6 +496,15 @@ export type DeleteUserMutation = {
     hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -540,7 +536,6 @@ export type CreateGreetingMutation = {
     vouch: number,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -558,7 +553,6 @@ export type UpdateGreetingMutation = {
     vouch: number,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -576,7 +570,6 @@ export type DeleteGreetingMutation = {
     vouch: number,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -774,16 +767,6 @@ export type GetUserQuery = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    greeting?:  {
-      __typename: "Greeting",
-      username: string,
-      title: string,
-      body: string,
-      vouch: number,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null,
     twitter?: string | null,
     instagram?: string | null,
     youtube?: string | null,
@@ -793,6 +776,15 @@ export type GetUserQuery = {
     hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -830,16 +822,6 @@ export type ListUsersQuery = {
       lastName?: string | null,
       avatar?: string | null,
       bio?: string | null,
-      greeting?:  {
-        __typename: "Greeting",
-        username: string,
-        title: string,
-        body: string,
-        vouch: number,
-        createdAt: string,
-        updatedAt: string,
-        owner?: string | null,
-      } | null,
       twitter?: string | null,
       instagram?: string | null,
       youtube?: string | null,
@@ -849,29 +831,21 @@ export type ListUsersQuery = {
       hashnode?: string | null,
       createdAt: string,
       updatedAt: string,
+      greeting?:  {
+        __typename: "Greeting",
+        username: string,
+        title: string,
+        body: string,
+        vouch: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       collections?:  {
         __typename: "ModelCollectionConnection",
         nextToken?: string | null,
       } | null,
     } | null > | null,
     nextToken?: string | null,
-  } | null,
-};
-
-export type GetGreetingQueryVariables = {
-  username?: string,
-};
-
-export type GetGreetingQuery = {
-  getGreeting?:  {
-    __typename: "Greeting",
-    username: string,
-    title: string,
-    body: string,
-    vouch: number,
-    createdAt: string,
-    updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -894,9 +868,24 @@ export type ListGreetingsQuery = {
       vouch: number,
       createdAt: string,
       updatedAt: string,
-      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
+  } | null,
+};
+
+export type GetGreetingQueryVariables = {
+  username?: string,
+};
+
+export type GetGreetingQuery = {
+  getGreeting?:  {
+    __typename: "Greeting",
+    username: string,
+    title: string,
+    body: string,
+    vouch: number,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -1023,16 +1012,6 @@ export type OnCreateUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    greeting?:  {
-      __typename: "Greeting",
-      username: string,
-      title: string,
-      body: string,
-      vouch: number,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null,
     twitter?: string | null,
     instagram?: string | null,
     youtube?: string | null,
@@ -1042,6 +1021,15 @@ export type OnCreateUserSubscription = {
     hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -1069,16 +1057,6 @@ export type OnUpdateUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    greeting?:  {
-      __typename: "Greeting",
-      username: string,
-      title: string,
-      body: string,
-      vouch: number,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null,
     twitter?: string | null,
     instagram?: string | null,
     youtube?: string | null,
@@ -1088,6 +1066,15 @@ export type OnUpdateUserSubscription = {
     hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -1115,16 +1102,6 @@ export type OnDeleteUserSubscription = {
     lastName?: string | null,
     avatar?: string | null,
     bio?: string | null,
-    greeting?:  {
-      __typename: "Greeting",
-      username: string,
-      title: string,
-      body: string,
-      vouch: number,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null,
     twitter?: string | null,
     instagram?: string | null,
     youtube?: string | null,
@@ -1134,6 +1111,15 @@ export type OnDeleteUserSubscription = {
     hashnode?: string | null,
     createdAt: string,
     updatedAt: string,
+    greeting?:  {
+      __typename: "Greeting",
+      username: string,
+      title: string,
+      body: string,
+      vouch: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     collections?:  {
       __typename: "ModelCollectionConnection",
       items?:  Array< {
@@ -1160,7 +1146,6 @@ export type OnCreateGreetingSubscription = {
     vouch: number,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1173,7 +1158,6 @@ export type OnUpdateGreetingSubscription = {
     vouch: number,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 
@@ -1186,7 +1170,6 @@ export type OnDeleteGreetingSubscription = {
     vouch: number,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
   } | null,
 };
 

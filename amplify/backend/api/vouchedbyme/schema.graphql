@@ -18,7 +18,7 @@ type User
   lastName: String
   avatar: String
   bio: String
-  greeting: Greeting
+  greeting: Greeting @connection(fields: ["username"])
   collections: [Collection!]
     @connection(keyName: "byUsername", fields: ["username"])
 
@@ -36,7 +36,7 @@ type Greeting
   @model
   @auth(
     rules: [
-      { allow: owner }
+      { allow: owner, ownerField: "username" }
       { allow: private, operations: [read] }
       { allow: public, operations: [read] }
     ]

@@ -12,15 +12,6 @@ export const getUser = /* GraphQL */ `
       lastName
       avatar
       bio
-      greeting {
-        username
-        title
-        body
-        vouch
-        createdAt
-        updatedAt
-        owner
-      }
       twitter
       instagram
       youtube
@@ -30,6 +21,14 @@ export const getUser = /* GraphQL */ `
       hashnode
       createdAt
       updatedAt
+      greeting {
+        username
+        title
+        body
+        vouch
+        createdAt
+        updatedAt
+      }
       collections {
         items {
           owner
@@ -68,15 +67,6 @@ export const listUsers = /* GraphQL */ `
         lastName
         avatar
         bio
-        greeting {
-          username
-          title
-          body
-          vouch
-          createdAt
-          updatedAt
-          owner
-        }
         twitter
         instagram
         youtube
@@ -86,24 +76,19 @@ export const listUsers = /* GraphQL */ `
         hashnode
         createdAt
         updatedAt
+        greeting {
+          username
+          title
+          body
+          vouch
+          createdAt
+          updatedAt
+        }
         collections {
           nextToken
         }
       }
       nextToken
-    }
-  }
-`;
-export const getGreeting = /* GraphQL */ `
-  query GetGreeting($username: String!) {
-    getGreeting(username: $username) {
-      username
-      title
-      body
-      vouch
-      createdAt
-      updatedAt
-      owner
     }
   }
 `;
@@ -129,9 +114,20 @@ export const listGreetings = /* GraphQL */ `
         vouch
         createdAt
         updatedAt
-        owner
       }
       nextToken
+    }
+  }
+`;
+export const getGreeting = /* GraphQL */ `
+  query GetGreeting($username: String!) {
+    getGreeting(username: $username) {
+      username
+      title
+      body
+      vouch
+      createdAt
+      updatedAt
     }
   }
 `;
