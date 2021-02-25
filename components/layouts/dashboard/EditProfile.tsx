@@ -30,6 +30,7 @@ export const EditProfile: React.FC = () => {
   const bio = useInput('')
 
   const [saving, setSaving] = useState(false)
+  const [justSaved, setJustSaved] = useState(false)
 
   useEffect(() => {
     firstName.setState(user?.firstName ?? '')
@@ -76,6 +77,8 @@ export const EditProfile: React.FC = () => {
         }
       } finally {
         setSaving(false)
+        setJustSaved(true)
+        setTimeout(() => setJustSaved(false), 1000)
       }
     }
 
@@ -124,7 +127,7 @@ export const EditProfile: React.FC = () => {
         />
         <Spacer y={2} />
         <Button type="secondary" loading={saving} onClick={saveProfile}>
-          <Text b>Save</Text>
+          <Text b>{justSaved ? 'Saved' : 'Save'}</Text>
         </Button>
       </>
     )
