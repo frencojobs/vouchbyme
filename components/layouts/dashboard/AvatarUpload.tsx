@@ -1,4 +1,4 @@
-import { Button, Spacer, Spinner, Text, useToasts } from '@geist-ui/react'
+import { Button, Spacer, Text, useToasts } from '@geist-ui/react'
 import { API, Storage } from 'aws-amplify'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
@@ -107,6 +107,7 @@ export const AvatarUpload: React.FC<Props> = ({ user }) => {
         <input
           type="file"
           id="file"
+          accept="image/x-png,image/gif,image/jpeg"
           ref={inputFile}
           onChange={onImageUpload}
           hidden

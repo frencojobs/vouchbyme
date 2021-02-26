@@ -31,13 +31,16 @@ export const onCreateUser = /* GraphQL */ `
       }
       collections {
         items {
-          owner
+          username
           createdAt
           id
           title
           layout
           vouch
           updatedAt
+          posts {
+            nextToken
+          }
         }
         nextToken
       }
@@ -73,13 +76,16 @@ export const onUpdateUser = /* GraphQL */ `
       }
       collections {
         items {
-          owner
+          username
           createdAt
           id
           title
           layout
           vouch
           updatedAt
+          posts {
+            nextToken
+          }
         }
         nextToken
       }
@@ -115,13 +121,16 @@ export const onDeleteUser = /* GraphQL */ `
       }
       collections {
         items {
-          owner
+          username
           createdAt
           id
           title
           layout
           vouch
           updatedAt
+          posts {
+            nextToken
+          }
         }
         nextToken
       }
@@ -167,7 +176,7 @@ export const onDeleteGreeting = /* GraphQL */ `
 export const onCreateCollection = /* GraphQL */ `
   subscription OnCreateCollection {
     onCreateCollection {
-      owner
+      username
       createdAt
       id
       title
@@ -177,17 +186,16 @@ export const onCreateCollection = /* GraphQL */ `
       posts {
         items {
           id
+          username
           collectionId
-          index
+          createdAt
           type
           title
           cover
           body
           link
           vouch
-          createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -197,7 +205,7 @@ export const onCreateCollection = /* GraphQL */ `
 export const onUpdateCollection = /* GraphQL */ `
   subscription OnUpdateCollection {
     onUpdateCollection {
-      owner
+      username
       createdAt
       id
       title
@@ -207,17 +215,16 @@ export const onUpdateCollection = /* GraphQL */ `
       posts {
         items {
           id
+          username
           collectionId
-          index
+          createdAt
           type
           title
           cover
           body
           link
           vouch
-          createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -227,7 +234,7 @@ export const onUpdateCollection = /* GraphQL */ `
 export const onDeleteCollection = /* GraphQL */ `
   subscription OnDeleteCollection {
     onDeleteCollection {
-      owner
+      username
       createdAt
       id
       title
@@ -237,17 +244,16 @@ export const onDeleteCollection = /* GraphQL */ `
       posts {
         items {
           id
+          username
           collectionId
-          index
+          createdAt
           type
           title
           cover
           body
           link
           vouch
-          createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -258,17 +264,16 @@ export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost {
     onCreatePost {
       id
+      username
       collectionId
-      index
+      createdAt
       type
       title
       cover
       body
       link
       vouch
-      createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -276,17 +281,16 @@ export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost {
     onUpdatePost {
       id
+      username
       collectionId
-      index
+      createdAt
       type
       title
       cover
       body
       link
       vouch
-      createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -294,17 +298,16 @@ export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost {
     onDeletePost {
       id
+      username
       collectionId
-      index
+      createdAt
       type
       title
       cover
       body
       link
       vouch
-      createdAt
       updatedAt
-      owner
     }
   }
 `;

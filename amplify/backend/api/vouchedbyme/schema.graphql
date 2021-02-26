@@ -52,13 +52,17 @@ type Collection
   @model
   @auth(
     rules: [
-      { allow: owner }
+      { allow: owner, ownerField: "username" }
       { allow: private, operations: [read] }
       { allow: public, operations: [read] }
     ]
   )
-  @key(name: "byUsername", fields: ["owner", "createdAt"]) {
-  owner: String
+  @key(
+    name: "byUsername"
+    fields: ["username", "createdAt"]
+    queryField: "listCollectionsByUsername"
+  ) {
+  username: String!
   createdAt: AWSDateTime! @auto
   id: ID!
   title: String!
@@ -71,17 +75,18 @@ type Post
   @model
   @auth(
     rules: [
-      { allow: owner }
+      { allow: owner, ownerField: "username" }
       { allow: private, operations: [read] }
       { allow: public, operations: [read] }
     ]
   )
-  @key(name: "byCollection", fields: ["collectionId", "index"]) {
+  @key(name: "byCollection", fields: ["collectionId", "createdAt"]) {
   id: ID!
+  username: String!
   collectionId: ID!
-  index: Int!
+  createdAt: AWSDateTime! @auto
   type: String!
-  title: String!
+  title: String
   cover: String
   body: String
   link: String

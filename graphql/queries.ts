@@ -31,13 +31,16 @@ export const getUser = /* GraphQL */ `
       }
       collections {
         items {
-          owner
+          username
           createdAt
           id
           title
           layout
           vouch
           updatedAt
+          posts {
+            nextToken
+          }
         }
         nextToken
       }
@@ -85,6 +88,15 @@ export const listUsers = /* GraphQL */ `
           updatedAt
         }
         collections {
+          items {
+            username
+            createdAt
+            id
+            title
+            layout
+            vouch
+            updatedAt
+          }
           nextToken
         }
       }
@@ -134,7 +146,7 @@ export const getGreeting = /* GraphQL */ `
 export const getCollection = /* GraphQL */ `
   query GetCollection($id: ID!) {
     getCollection(id: $id) {
-      owner
+      username
       createdAt
       id
       title
@@ -144,17 +156,16 @@ export const getCollection = /* GraphQL */ `
       posts {
         items {
           id
+          username
           collectionId
-          index
+          createdAt
           type
           title
           cover
           body
           link
           vouch
-          createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -169,7 +180,7 @@ export const listCollections = /* GraphQL */ `
   ) {
     listCollections(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        owner
+        username
         createdAt
         id
         title
@@ -177,6 +188,65 @@ export const listCollections = /* GraphQL */ `
         vouch
         updatedAt
         posts {
+          items {
+            id
+            username
+            collectionId
+            createdAt
+            type
+            title
+            cover
+            body
+            link
+            vouch
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const listCollectionsByUsername = /* GraphQL */ `
+  query ListCollectionsByUsername(
+    $username: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCollectionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCollectionsByUsername(
+      username: $username
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        username
+        createdAt
+        id
+        title
+        layout
+        vouch
+        updatedAt
+        posts {
+          items {
+            id
+            username
+            collectionId
+            createdAt
+            type
+            title
+            cover
+            body
+            link
+            vouch
+            updatedAt
+          }
           nextToken
         }
       }
@@ -188,17 +258,16 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
+      username
       collectionId
-      index
+      createdAt
       type
       title
       cover
       body
       link
       vouch
-      createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -211,17 +280,16 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        username
         collectionId
-        index
+        createdAt
         type
         title
         cover
         body
         link
         vouch
-        createdAt
         updatedAt
-        owner
       }
       nextToken
     }

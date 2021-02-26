@@ -34,13 +34,16 @@ export const createUser = /* GraphQL */ `
       }
       collections {
         items {
-          owner
+          username
           createdAt
           id
           title
           layout
           vouch
           updatedAt
+          posts {
+            nextToken
+          }
         }
         nextToken
       }
@@ -79,13 +82,16 @@ export const updateUser = /* GraphQL */ `
       }
       collections {
         items {
-          owner
+          username
           createdAt
           id
           title
           layout
           vouch
           updatedAt
+          posts {
+            nextToken
+          }
         }
         nextToken
       }
@@ -124,13 +130,16 @@ export const deleteUser = /* GraphQL */ `
       }
       collections {
         items {
-          owner
+          username
           createdAt
           id
           title
           layout
           vouch
           updatedAt
+          posts {
+            nextToken
+          }
         }
         nextToken
       }
@@ -188,7 +197,7 @@ export const createCollection = /* GraphQL */ `
     $condition: ModelCollectionConditionInput
   ) {
     createCollection(input: $input, condition: $condition) {
-      owner
+      username
       createdAt
       id
       title
@@ -198,17 +207,16 @@ export const createCollection = /* GraphQL */ `
       posts {
         items {
           id
+          username
           collectionId
-          index
+          createdAt
           type
           title
           cover
           body
           link
           vouch
-          createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -221,7 +229,7 @@ export const updateCollection = /* GraphQL */ `
     $condition: ModelCollectionConditionInput
   ) {
     updateCollection(input: $input, condition: $condition) {
-      owner
+      username
       createdAt
       id
       title
@@ -231,17 +239,16 @@ export const updateCollection = /* GraphQL */ `
       posts {
         items {
           id
+          username
           collectionId
-          index
+          createdAt
           type
           title
           cover
           body
           link
           vouch
-          createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -254,7 +261,7 @@ export const deleteCollection = /* GraphQL */ `
     $condition: ModelCollectionConditionInput
   ) {
     deleteCollection(input: $input, condition: $condition) {
-      owner
+      username
       createdAt
       id
       title
@@ -264,17 +271,16 @@ export const deleteCollection = /* GraphQL */ `
       posts {
         items {
           id
+          username
           collectionId
-          index
+          createdAt
           type
           title
           cover
           body
           link
           vouch
-          createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -288,17 +294,16 @@ export const createPost = /* GraphQL */ `
   ) {
     createPost(input: $input, condition: $condition) {
       id
+      username
       collectionId
-      index
+      createdAt
       type
       title
       cover
       body
       link
       vouch
-      createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -309,17 +314,16 @@ export const updatePost = /* GraphQL */ `
   ) {
     updatePost(input: $input, condition: $condition) {
       id
+      username
       collectionId
-      index
+      createdAt
       type
       title
       cover
       body
       link
       vouch
-      createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -330,17 +334,16 @@ export const deletePost = /* GraphQL */ `
   ) {
     deletePost(input: $input, condition: $condition) {
       id
+      username
       collectionId
-      index
+      createdAt
       type
       title
       cover
       body
       link
       vouch
-      createdAt
       updatedAt
-      owner
     }
   }
 `;

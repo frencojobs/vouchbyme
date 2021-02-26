@@ -25,3 +25,11 @@
 textarea {
   font-size: 1rem !important;
 }
+
+.select {
+  height: calc(1.875 * 16pt) !important;
+}
+
+.select > .placeholder {
+  font-size: 1rem !important;
+}
