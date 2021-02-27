@@ -11,11 +11,17 @@ import {
 import UploadCloudIcon from '@geist-ui/react-icons/uploadCloud'
 import { API, Storage } from 'aws-amplify'
 import { useAtom } from 'jotai'
+import Image from 'next/image'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
-import { createCollection, createPost } from '../../../graphql/mutations'
+import {
+  createCollection,
+  createPost,
+  updatePost,
+} from '../../../graphql/mutations'
 import { listCollectionsByUsername } from '../../../graphql/queries'
+import { contentTypes } from '../../../lib/contentTypes'
 import { collectionsAtom } from '../../../state/atoms'
 import type { ContentType } from '../../../types'
 import {
@@ -25,6 +31,8 @@ import {
   CreatePostMutationVariables,
   ListCollectionsByUsernameQuery,
   ListCollectionsByUsernameQueryVariables,
+  Post,
+  UpdatePostMutationVariables,
   User,
 } from '../../../types/api'
 import { falsyToNull } from '../../../utils/falsyToNull'
@@ -33,17 +41,18 @@ type Props = {
   user: User
   onClose: () => void
   createCollectionMode?: boolean
+  fromPost?: Post
 }
 
 export const CreatePost: React.FC<Props> = ({
   user,
   onClose,
   createCollectionMode = false,
+  fromPost,
 }) => {
   const [, addToast] = useToasts()
 
   const [collections, setCollections] = useAtom(collectionsAtom)
-  const contentTypes: Record<ContentType, string> = { post: 'Post' }
   const [contentType, setContentType] = useState<ContentType>('post')
   const inputFile = useRef<HTMLInputElement>(null)
   const [cover, setCover] = useState<{ fileInfo: File; name: string } | null>(
@@ -52,11 +61,13 @@ export const CreatePost: React.FC<Props> = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [coverPreview, setCoverPreview] = useState<any>(null)
 
-  const title = useInput('')
-  const body = useInput('')
-  const link = useInput('')
+  const title = useInput(fromPost?.title ?? '')
+  const body = useInput(fromPost?.body ?? '')
+  const link = useInput(fromPost?.link ?? '')
 
-  const [collectionId, setCollectionId] = useState<string | null>(null)
+  const [collectionId, setCollectionId] = useState<string | null>(
+    fromPost?.collectionId ?? null
+  )
   const collectionText = useInput('')
 
   const [options, setOptions] = useState(
@@ -83,6 +94,12 @@ export const CreatePost: React.FC<Props> = ({
       )
     )
   }
+
+  useEffect(() => {
+    if (fromPost?.cover) {
+      Storage.get(fromPost.cover).then((url) => setCoverPreview(url))
+    }
+  }, [fromPost])
 
   useEffect(() => {
     loadCollections()
@@ -124,7 +141,21 @@ export const CreatePost: React.FC<Props> = ({
         await Storage.put(cover.name, cover.fileInfo)
       }
 
-      if (createCollectionMode) {
+      if (fromPost !== null) {
+        await API.graphql({
+          query: updatePost,
+          variables: {
+            input: {
+              id: fromPost?.id,
+              type: contentType,
+              title: falsyToNull(title.state),
+              link: falsyToNull(link.state),
+              body: falsyToNull(body.state),
+              cover: falsyToNull(cover?.name),
+            },
+          } as UpdatePostMutationVariables,
+        })
+      } else if (createCollectionMode) {
         const res = (await API.graphql({
           query: createCollection,
           variables: {
@@ -196,13 +227,17 @@ export const CreatePost: React.FC<Props> = ({
           <Text style={{ color: '#444' }} className="pl-px leading-none">
             Collection
           </Text>
-          {!createCollectionMode ? (
+          {createCollectionMode ? (
+            <Input size="large" width="100%" {...collectionText.bindings} />
+          ) : (
             <Select
               clearable
               size="large"
               width="100%"
               placeholder="Select a collection"
-              onChange={(selection) => setCollectionId(selection as string)}>
+              onChange={(selection) => setCollectionId(selection as string)}
+              initialValue={fromPost?.collectionId}
+              disabled={!!fromPost}>
               {options.map((o) => (
                 <Select.Option
                   key={o.value}
@@ -212,8 +247,6 @@ export const CreatePost: React.FC<Props> = ({
                 </Select.Option>
               ))}
             </Select>
-          ) : (
-            <Input size="large" width="100%" {...collectionText.bindings} />
           )}
         </div>
         <Spacer />
@@ -257,8 +290,11 @@ export const CreatePost: React.FC<Props> = ({
                       </Text>
                     </div>
                   ) : (
-                    <img
+                    <Image
+                      layout="fill"
+                      objectFit="cover"
                       src={coverPreview}
+                      alt="Cover Image Preview"
                       className="absolute object-cover w-full h-full"
                     />
                   )}
