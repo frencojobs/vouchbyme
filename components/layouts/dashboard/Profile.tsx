@@ -63,7 +63,9 @@ export const Profile: React.FC = () => {
         ))}
         <Divider />
         {user ? (
-          <User src={avatar} name={`${user.firstName} ${user.lastName}`}>
+          <User
+            src={avatar}
+            name={`${user.firstName} ${user.lastName ?? ''}`.trim()}>
             <User.Link href={`/${user.username}`}>
               vouchedby.me/{user.username}
             </User.Link>

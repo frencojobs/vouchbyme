@@ -30,8 +30,7 @@ export const PostItem: React.FC<Props> = ({ user, post, reload }) => {
   const [, addToast] = useToasts()
   const isSmallerThanMd = useMediaQuery('md', { match: 'down' })
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [cover, setCover] = useState<any>(null)
+  const [cover, setCover] = useState<string | null>(null)
   const [popoverVisible, setPopoverVisible] = useState(false)
 
   const editModal = useModal()
@@ -40,7 +39,7 @@ export const PostItem: React.FC<Props> = ({ user, post, reload }) => {
 
   useEffect(() => {
     if (post.cover) {
-      Storage.get(post.cover).then((url) => setCover(url))
+      Storage.get(post.cover).then((url) => setCover(url as string))
     }
   }, [post.cover])
 
@@ -103,31 +102,30 @@ export const PostItem: React.FC<Props> = ({ user, post, reload }) => {
         </Modal.Action>
       </Modal>
       <div
-        className="flex flex-col items-start p-0 pr-5 overflow-hidden rounded md:items-center md:flex-row"
+        className="flex flex-col items-start p-0 overflow-hidden rounded md:items-center md:flex-row"
         style={{
           border: '1px solid #eaeaea',
         }}>
-        <div className="relative w-full overflow-hidden bg-gray-200 h-28 md:w-1/3">
+        <div className="relative w-full h-32 overflow-hidden bg-gray-200 md:w-1/3">
           {cover ? (
             <Image
               layout="fill"
               objectFit="cover"
               src={cover}
-              alt="Cover Image Preview"
+              alt="Cover Image"
               className="absolute object-cover w-full h-full"
             />
           ) : null}
         </div>
-        <Spacer />
-        <div className="flex flex-row items-center justify-between w-full">
-          <div className="flex-grow">
+        <div className="flex flex-row items-center justify-between w-full p-4 pr-0 md:pr-4 md:py-0">
+          <div>
             <div className="font-bold">{post.title}</div>
             {post.link ? (
-              <Link href={post.link} color icon>
+              <Link href={'https://' + post.link} color icon>
                 {post.link}
               </Link>
             ) : null}
-            <div className="flex flex-row items-center leading-none text-gray-400 ">
+            <div className="flex flex-row items-center leading-none text-gray-400">
               <span>{contentTypes[post.type as ContentType]}</span>
               <Spacer x={0.25} />
               &middot;
@@ -152,7 +150,10 @@ export const PostItem: React.FC<Props> = ({ user, post, reload }) => {
                 </Popover.Item>
               </>
             }>
-            <MoreVerticalIcon size={16} className="mt-1 cursor-pointer" />
+            <MoreVerticalIcon
+              size={16}
+              className="mr-8 cursor-pointer md:mr-0 md:mt-1"
+            />
           </Popover>
         </div>
       </div>

@@ -141,7 +141,7 @@ export const CreatePost: React.FC<Props> = ({
         await Storage.put(cover.name, cover.fileInfo)
       }
 
-      if (fromPost !== null) {
+      if (fromPost) {
         await API.graphql({
           query: updatePost,
           variables: {

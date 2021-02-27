@@ -1,5 +1,5 @@
 type User
-  @model
+  @model(subscriptions: { level: public })
   @auth(
     rules: [
       { allow: owner, ownerField: "username", operations: [read, update] }
@@ -14,7 +14,7 @@ type User
   email: String!
 
   # Profile Props
-  firstName: String
+  firstName: String!
   lastName: String
   avatar: String
   bio: String
