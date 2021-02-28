@@ -67,7 +67,7 @@ export const Profile: React.FC = () => {
             src={avatar}
             name={`${user.firstName} ${user.lastName ?? ''}`.trim()}>
             <User.Link href={`/${user.username}`}>
-              vouchedby.me/{user.username}
+              vouchby.me/{user.username}
             </User.Link>
           </User>
         ) : (

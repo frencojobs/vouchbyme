@@ -101,7 +101,7 @@ export const EditProfile: React.FC = () => {
         <Spacer />
         <div className="flex flex-col md:flex-row">
           <Input
-            label="vouchedby.me/"
+            label="vouchby.me/"
             size="large"
             width="100%"
             readOnly

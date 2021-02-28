@@ -33,7 +33,7 @@ const HomePage: NextPage = () => {
     <Page>
       <Page.Header className="flex flex-row items-center justify-between py-5 md:py-10">
         <Text className="text-lg md:text-xl">
-          ✌️ <span className="font-mono">VouchedByMe</span>
+          ✌️ <span className="font-mono">VouchByMe</span>
         </Text>
 
         {user ? (
