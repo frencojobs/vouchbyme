@@ -1,0 +1,3 @@
+# serverless.yml
+vouchedbyme:
+  component: "@sls-next/serverless-component@1.17.0"

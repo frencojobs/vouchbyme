@@ -52,3 +52,10 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 team-provider-info.json
+
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless*
