@@ -1,3 +1,5 @@
+import 'inter-ui/inter.css'
+
 import '../styles/tailwind.css'
 import '../styles/global.css'
 

@@ -64,6 +64,7 @@
     "autoprefixer": "^10.2.4",
     "aws-amplify": "^3.3.20",
     "classnames": "^2.2.6",
+    "inter-ui": "^3.15.0",
     "jotai": "^0.14.1",
     "next": "^10.0.7",
     "next-seo": "^4.19.0",
