@@ -8,6 +8,7 @@ import {
   useModal,
 } from '@geist-ui/react'
 import PlusIcon from '@geist-ui/react-icons/plus'
+import TruckIcon from '@geist-ui/react-icons/truck'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
 
@@ -29,7 +30,12 @@ export const Collections: React.FC = () => {
     if (i === 0) {
       return <CollectionsList />
     } else {
-      return <>vouches</>
+      return (
+        <div className="flex flex-col items-center justify-center w-full h-full">
+          <TruckIcon />
+          <Text>Feature still in progress.</Text>
+        </div>
+      )
     }
   }
 

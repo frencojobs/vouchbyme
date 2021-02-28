@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   useModal,
 } from '@geist-ui/react'
+import ListIcon from '@geist-ui/react-icons/list'
 import MoreVerticalIcon from '@geist-ui/react-icons/moreVertical'
 import { API } from 'aws-amplify'
 import { useAtom } from 'jotai'
@@ -66,6 +67,13 @@ export const CollectionsList: React.FC = () => {
     return (
       <div className="flex items-center justify-center w-full h-full">
         <Spinner />
+      </div>
+    )
+  } else if (collections.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <ListIcon />
+        <Text>Seems like you don&apos;t have any collection yet.</Text>
       </div>
     )
   } else {
