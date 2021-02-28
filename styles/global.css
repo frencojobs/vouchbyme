@@ -19,7 +19,11 @@
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background-color: rgba(234, 234, 234, 0.5);
+  background-color: #eaeaea;
+}
+
+.dark.dashboard-nav::before {
+  background-color: rgba(200, 200, 200, 0.2);
 }
 
 textarea {
