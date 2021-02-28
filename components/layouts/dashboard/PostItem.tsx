@@ -10,7 +10,6 @@ import {
 } from '@geist-ui/react'
 import MoreVerticalIcon from '@geist-ui/react-icons/moreVertical'
 import { API, Storage } from 'aws-amplify'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { format as timeago } from 'timeago.js'
 
@@ -108,9 +107,7 @@ export const PostItem: React.FC<Props> = ({ user, post, reload }) => {
         }}>
         <div className="relative w-full h-32 overflow-hidden bg-gray-200 md:w-1/3">
           {cover ? (
-            <Image
-              layout="fill"
-              objectFit="cover"
+            <img
               src={cover}
               alt="Cover Image"
               className="absolute object-cover w-full h-full"

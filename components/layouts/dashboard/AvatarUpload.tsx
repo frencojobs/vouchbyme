@@ -2,7 +2,6 @@ import { Button, Spacer, Text, useToasts } from '@geist-ui/react'
 import { API, Storage } from 'aws-amplify'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
-import Image from 'next/image'
 import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
@@ -71,11 +70,9 @@ export const AvatarUpload: React.FC<Props> = ({ user }) => {
   return (
     <div className="flex flex-row items-center">
       <div className="relative overflow-hidden border border-gray-200 border-solid rounded-full w-28 h-28">
-        <Image
+        <img
           src={avatar ?? '/assets/avatar.jpg'}
           alt="Profile picture"
-          layout="fill"
-          objectFit="cover"
           className={cn({
             hidden: uploading,
             block: !uploading,

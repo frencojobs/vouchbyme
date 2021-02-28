@@ -2,7 +2,6 @@ import type { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
 import { Divider, Link, Spacer, Text } from '@geist-ui/react'
 import { API, Storage } from 'aws-amplify'
 import { GetServerSideProps, NextPage } from 'next'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 import { CollectionView } from '../../components/CollectionView'
@@ -66,12 +65,7 @@ const UsernamePage: NextPage<Props> = (props) => {
           <div className="flex flex-col items-center md:flex-row">
             {props.avatarUrl ? (
               <div className="relative overflow-hidden border border-gray-200 border-solid rounded-full w-28 h-28">
-                <Image
-                  src={props.avatarUrl}
-                  alt="Profile picture"
-                  layout="fill"
-                  objectFit="cover"
-                />
+                <img src={props.avatarUrl} alt="Profile picture" />
               </div>
             ) : null}
             <Spacer x={2} />

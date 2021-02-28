@@ -11,7 +11,6 @@ import {
 import UploadCloudIcon from '@geist-ui/react-icons/uploadCloud'
 import { API, Storage } from 'aws-amplify'
 import { useAtom } from 'jotai'
-import Image from 'next/image'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
@@ -290,9 +289,7 @@ export const CreatePost: React.FC<Props> = ({
                       </Text>
                     </div>
                   ) : (
-                    <Image
-                      layout="fill"
-                      objectFit="cover"
+                    <img
                       src={coverPreview}
                       alt="Cover Image Preview"
                       className="absolute object-cover w-full h-full"
