@@ -95,10 +95,9 @@ const UsernamePage: NextPage<Props> = (props) => {
             {user.greeting.body?.split('\n').map((t, i) => (
               <Text key={i}>{t}</Text>
             ))}
-            <Divider />
           </>
         ) : null}
-
+        {collections.length !== 0 ? <Divider /> : null}
         {collections.map((collection, index) => (
           <>
             <CollectionView
