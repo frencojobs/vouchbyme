@@ -1,6 +1,7 @@
 import { API, withSSRContext } from 'aws-amplify'
 import { useAtom } from 'jotai'
 import { GetServerSideProps, NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 import { useEffect, useState } from 'react'
 
 import { DashboardLayout } from '../components/layouts/dashboard'
@@ -32,16 +33,19 @@ const DashboardPage: NextPage<Props> = ({ username }) => {
   }, [])
 
   return (
-    <DashboardLayout onTabChange={(t) => setTab(t)}>
-      {(() => {
-        switch (tab) {
-          case 'profile':
-            return <Profile />
-          case 'collections':
-            return <Collections />
-        }
-      })()}
-    </DashboardLayout>
+    <>
+      <NextSeo title="Dashboard" />
+      <DashboardLayout onTabChange={(t) => setTab(t)}>
+        {(() => {
+          switch (tab) {
+            case 'profile':
+              return <Profile />
+            case 'collections':
+              return <Collections />
+          }
+        })()}
+      </DashboardLayout>
+    </>
   )
 }
 

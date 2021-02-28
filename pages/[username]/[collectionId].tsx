@@ -2,6 +2,7 @@ import type { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
 import { Divider, Link, Spacer, Spinner, Text } from '@geist-ui/react'
 import { API, Storage } from 'aws-amplify'
 import { GetServerSideProps, NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 import { useEffect, useState } from 'react'
 
 import { CollectionView } from '../../components/CollectionView'
@@ -51,6 +52,10 @@ const CollectionPage: NextPage<Props> = (props) => {
 
   return (
     <>
+      <NextSeo
+        title={collection.title}
+        description={`${user.firstName} vouched for these.`}
+      />
       <div className="bg-blue-100 bg-opacity-25 py-14">
         <div className="max-w-2xl px-5 mx-auto">
           <div className="flex flex-col items-center md:flex-row">
