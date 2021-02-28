@@ -1,4 +1,4 @@
-import { Divider, Spacer, User, useTheme } from '@geist-ui/react'
+import { Divider, Spacer, User } from '@geist-ui/react'
 import { Storage } from 'aws-amplify'
 import cn from 'classnames'
 import { useAtom } from 'jotai'

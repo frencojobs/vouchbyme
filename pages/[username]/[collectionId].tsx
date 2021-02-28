@@ -1,5 +1,5 @@
 import type { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
-import { Divider, Link, Spacer, Text } from '@geist-ui/react'
+import { Divider, Link, Spacer, Spinner, Text } from '@geist-ui/react'
 import { API, Storage } from 'aws-amplify'
 import { GetServerSideProps, NextPage } from 'next'
 import { useEffect, useState } from 'react'
@@ -28,6 +28,8 @@ const CollectionPage: NextPage<Props> = (props) => {
   const [user] = useState(props.user)
   const [collection, setCollection] = useState<Collection>(props.collection)
 
+  const [loading, setLoading] = useState(false)
+
   const loadCollection = async () => {
     const res = (await API.graphql({
       authMode: 'API_KEY' as GRAPHQL_AUTH_MODE,
@@ -41,7 +43,10 @@ const CollectionPage: NextPage<Props> = (props) => {
   }
 
   useEffect(() => {
-    loadCollection().then((c) => setCollection(c))
+    setLoading(true)
+    loadCollection()
+      .then((c) => setCollection(c))
+      .finally(() => setLoading(false))
   }, [props])
 
   return (
@@ -66,13 +71,19 @@ const CollectionPage: NextPage<Props> = (props) => {
           </div>
         </div>
       </div>
-      <div className="max-w-2xl px-5 py-10 mx-auto">
-        <CollectionView
-          username={user.username as string}
-          key={collection?.id}
-          collection={collection as Collection}
-        />
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center w-full h-full">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="max-w-2xl px-5 py-10 mx-auto">
+          <CollectionView
+            username={user.username as string}
+            key={collection?.id}
+            collection={collection as Collection}
+          />
+        </div>
+      )}
 
       <div className="max-w-2xl px-5 mx-auto">
         <Divider className="mb-0" />

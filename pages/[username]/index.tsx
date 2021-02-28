@@ -1,5 +1,5 @@
 import type { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
-import { Divider, Link, Spacer, Text } from '@geist-ui/react'
+import { Divider, Link, Spacer, Spinner, Text } from '@geist-ui/react'
 import { API, Storage } from 'aws-amplify'
 import { GetServerSideProps, NextPage } from 'next'
 import { useEffect, useState } from 'react'
@@ -26,6 +26,8 @@ const UsernamePage: NextPage<Props> = (props) => {
 
   const [user, setUser] = useState(props.user)
   const [collections, setCollections] = useState<Array<Collection>>([])
+
+  const [loading, setLoading] = useState(false)
 
   const loadUser = async () => {
     const res = (await API.graphql({
@@ -55,7 +57,10 @@ const UsernamePage: NextPage<Props> = (props) => {
 
   useEffect(() => {
     loadUser().then((u) => setUser(u))
-    loadCollections().then((c) => setCollections(c))
+    setLoading(true)
+    loadCollections()
+      .then((c) => setCollections(c))
+      .finally(() => setLoading(false))
   }, [props.user])
 
   return (
@@ -92,16 +97,23 @@ const UsernamePage: NextPage<Props> = (props) => {
           </>
         ) : null}
         {collections.length !== 0 ? <Divider /> : null}
-        {collections.map((collection, index) => (
-          <>
-            <CollectionView
-              username={user.username as string}
-              key={collection?.id}
-              collection={collection as Collection}
-            />
-            {collections.length !== index + 1 ? <Divider /> : null}
-          </>
-        ))}
+
+        {loading ? (
+          <div className="flex items-center justify-center w-full h-full">
+            <Spinner />
+          </div>
+        ) : (
+          collections.map((collection, index) => (
+            <>
+              <CollectionView
+                username={user.username as string}
+                key={collection?.id}
+                collection={collection as Collection}
+              />
+              {collections.length !== index + 1 ? <Divider /> : null}
+            </>
+          ))
+        )}
       </div>
 
       <div className="max-w-2xl px-5 mx-auto">
