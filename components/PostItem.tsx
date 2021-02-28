@@ -1,7 +1,6 @@
 import { Link, Spacer } from '@geist-ui/react'
 import { Storage } from 'aws-amplify'
 import { useEffect, useState } from 'react'
-import { format as timeago } from 'timeago.js'
 
 import { Post } from '../types/api'
 
@@ -19,7 +18,7 @@ export const ColumnPostItem: React.FC<PostItemProps> = ({ post }) => {
   return (
     <>
       <div
-        className="flex flex-col items-start p-0 overflow-hidden rounded md:items-center md:flex-row"
+        className="flex flex-col items-start p-0 overflow-hidden rounded hover:shadow md:items-center md:flex-row"
         style={{
           border: '1px solid #eaeaea',
         }}>
@@ -34,18 +33,13 @@ export const ColumnPostItem: React.FC<PostItemProps> = ({ post }) => {
         </div>
         <div className="flex flex-row items-center justify-between w-full p-4 pr-0 md:pr-4 md:py-0">
           <div>
-            <div className="font-bold">{post.title}</div>
+            <div className="pb-1 font-bold">{post.title}</div>
             {post.link ? (
               <Link href={'https://' + post.link} color icon>
-                {post.link}
+                {post.link.slice(0, 50)}
+                {post.link.length > 50 ? '...' : null}
               </Link>
             ) : null}
-
-            <div className="flex flex-row items-center leading-none text-gray-400 ">
-              {post.updatedAt ? (
-                <span>Updated&nbsp;{timeago(post.updatedAt)}</span>
-              ) : null}
-            </div>
           </div>
         </div>
       </div>
@@ -65,7 +59,7 @@ export const RowPostItem: React.FC<PostItemProps> = ({ post }) => {
 
   return (
     <div
-      className="flex flex-col items-start w-full overflow-hidden rounded"
+      className="flex flex-col items-start w-full overflow-hidden rounded hover:shadow"
       style={{
         border: '1px solid #eaeaea',
       }}>
@@ -80,18 +74,13 @@ export const RowPostItem: React.FC<PostItemProps> = ({ post }) => {
       </div>
       <div className="flex flex-row items-center justify-between py-4 pl-4">
         <div>
-          <div className="font-bold">{post.title}</div>
+          <div className="pb-1 font-bold">{post.title}</div>
           {post.link ? (
             <Link href={'https://' + post.link} color icon>
-              {post.link}
+              {post.link.slice(0, 20)}
+              {post.link.length > 20 ? '...' : null}
             </Link>
           ) : null}
-
-          <div className="flex flex-row items-center leading-none text-gray-400 ">
-            {post.updatedAt ? (
-              <span>Updated&nbsp;{timeago(post.updatedAt)}</span>
-            ) : null}
-          </div>
         </div>
       </div>
     </div>
