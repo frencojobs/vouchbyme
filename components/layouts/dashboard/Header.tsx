@@ -3,6 +3,8 @@ import LogOutIcon from '@geist-ui/react-icons/logOut'
 import { Auth } from 'aws-amplify'
 import Router from 'next/router'
 
+import { ThemeToggler } from '../../ThemeToggler'
+
 type Props = {
   tabBindings: unknown
 }
@@ -13,20 +15,25 @@ export const Header: React.FC<Props> = ({ tabBindings }) => {
       <div className="max-w-4xl px-5 mx-auto">
         <Row align="middle" justify="space-between" className="pt-5">
           <Text h3>✌️</Text>
-          <Link
-            href="#"
-            block
-            onClick={async () => {
-              await Auth.signOut()
-              Router.push('/')
-            }}
-            className="flex flex-row items-center">
-            <Text b className="text-sm">
-              Sign Out
-            </Text>
+
+          <div className="flex flex-row items-center">
+            <ThemeToggler small />
             <Spacer x={0.5} />
-            <LogOutIcon size={18} />
-          </Link>
+            <Link
+              href="#"
+              block
+              onClick={async () => {
+                await Auth.signOut()
+                Router.push('/')
+              }}
+              className="flex flex-row items-center">
+              <Text b className="text-sm">
+                Sign Out
+              </Text>
+              <Spacer x={0.5} />
+              <LogOutIcon size={18} />
+            </Link>
+          </div>
         </Row>
       </div>
 

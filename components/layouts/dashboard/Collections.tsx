@@ -12,11 +12,16 @@ import TruckIcon from '@geist-ui/react-icons/truck'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
 
-import { currentCollectionsMenuIndexAtom, userAtom } from '../../../state/atoms'
+import {
+  currentCollectionsMenuIndexAtom,
+  themeAtom,
+  userAtom,
+} from '../../../state/atoms'
 import { CollectionsList } from './CollectionsList'
 import { CreatePost } from './CreatePost'
 
 export const Collections: React.FC = () => {
+  const [theme] = useAtom(themeAtom)
   const [user] = useAtom(userAtom)
   const menu = ['Your Collections', 'Your Vouches']
   const [currentMenuIndex, setCurrentMenuIndex] = useAtom(
@@ -76,11 +81,13 @@ export const Collections: React.FC = () => {
               key={item}
               onClick={() => setCurrentMenuIndex(index)}
               className={cn(
-                'flex w-full flex-row py-2 my-1 cursor-pointer rounded-lg select-none text-black appearance-none border-none transition-all ease-in duration-100',
+                'flex w-full flex-row py-2 my-1 cursor-pointer rounded-lg select-none appearance-none border-none transition-all ease-in duration-100',
                 {
                   'font-bold bg-blue-100 text-blue-500':
-                    index === currentMenuIndex,
-                  'font-normal bg-white': index !== currentMenuIndex,
+                    index === currentMenuIndex && theme === 'light',
+                  'font-bold bg-gray-900 text-blue-500':
+                    index === currentMenuIndex && theme === 'dark',
+                  'font-normal bg-transparent': index !== currentMenuIndex,
                 }
               )}>
               <Spacer x={0.5} />

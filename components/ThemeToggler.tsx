@@ -1,11 +1,16 @@
 import { Button } from '@geist-ui/react'
 import Moon from '@geist-ui/react-icons/moon'
 import Sun from '@geist-ui/react-icons/sun'
+import cn from 'classnames'
 import { useAtom } from 'jotai'
 
 import { themeAtom } from '../state/atoms'
 
-export const ThemeToggler: React.FC = () => {
+type Props = {
+  small?: boolean
+}
+
+export const ThemeToggler: React.FC<Props> = ({ small = false }) => {
   const [theme, setTheme] = useAtom(themeAtom)
 
   return (
@@ -16,7 +21,10 @@ export const ThemeToggler: React.FC = () => {
       auto
       ghost
       onClick={() => setTheme(theme == 'light' ? 'dark' : 'light')}
-      className="w-10 p-0 rounded-full"
+      className={cn('p-0 rounded-full', {
+        'w-10': !small,
+        'w-8 h-8': small,
+      })}
     />
   )
 }

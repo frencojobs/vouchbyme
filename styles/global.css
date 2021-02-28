@@ -19,7 +19,7 @@
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background-color: #eaeaea;
+  background-color: rgba(234, 234, 234, 0.5);
 }
 
 textarea {

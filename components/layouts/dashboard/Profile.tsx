@@ -1,4 +1,4 @@
-import { Divider, Spacer, User } from '@geist-ui/react'
+import { Divider, Spacer, User, useTheme } from '@geist-ui/react'
 import { Storage } from 'aws-amplify'
 import cn from 'classnames'
 import { useAtom } from 'jotai'
@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import {
   avatarAtom,
   currentProfileMenuIndexAtom,
+  themeAtom,
   userAtom,
 } from '../../../state/atoms'
 import { AddGreeting } from './AddGreeting'
@@ -14,6 +15,8 @@ import { AddLinks } from './AddLinks'
 import { EditProfile } from './EditProfile'
 
 export const Profile: React.FC = () => {
+  const [theme] = useAtom(themeAtom)
+
   const menu = [
     'Edit your profile',
     'Add social media links',
@@ -50,11 +53,13 @@ export const Profile: React.FC = () => {
             key={item}
             onClick={() => setCurrentMenuIndex(index)}
             className={cn(
-              'flex w-full flex-row py-2 my-1 cursor-pointer rounded-lg select-none text-black appearance-none border-none transition-all ease-in duration-100',
+              'flex w-full flex-row py-2 my-1 cursor-pointer rounded-lg select-none appearance-none border-none transition-all ease-in duration-100',
               {
                 'font-bold bg-blue-100 text-blue-500':
-                  index === currentMenuIndex,
-                'font-normal bg-white': index !== currentMenuIndex,
+                  index === currentMenuIndex && theme === 'light',
+                'font-bold bg-gray-900 text-blue-500':
+                  index === currentMenuIndex && theme === 'dark',
+                'font-normal bg-transparent': index !== currentMenuIndex,
               }
             )}>
             <Spacer x={0.5} />
