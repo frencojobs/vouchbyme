@@ -57,7 +57,7 @@ const HomePage: NextPage = () => {
         <Button
           type="success"
           onClick={() => {
-            Router.push('/dashboard')
+            Router.push('/auth/sign-in?next=/dashboard')
           }}>
           <Text b>{user ? 'Go to your dashboard' : 'Give it a try!'}</Text>
         </Button>
