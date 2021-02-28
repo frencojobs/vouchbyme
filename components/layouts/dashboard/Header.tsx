@@ -1,7 +1,5 @@
 import { Link, Row, Spacer, Tabs, Text } from '@geist-ui/react'
-import ListIcon from '@geist-ui/react-icons/list'
 import LogOutIcon from '@geist-ui/react-icons/logOut'
-import SmileIcon from '@geist-ui/react-icons/smile'
 import { Auth } from 'aws-amplify'
 import Router from 'next/router'
 
@@ -36,21 +34,11 @@ export const Header: React.FC<Props> = ({ tabBindings }) => {
         <div className="max-w-4xl px-5 mx-auto dashboard-nav">
           <Tabs hideDivider {...tabBindings}>
             <Tabs.Item
-              label={
-                <>
-                  <SmileIcon />
-                  Profile
-                </>
-              }
+              label={<div className="px-2">Profile</div>}
               value="profile"
             />
             <Tabs.Item
-              label={
-                <>
-                  <ListIcon />
-                  Collections
-                </>
-              }
+              label={<div className="px-2">Collections</div>}
               value="collections"
             />
           </Tabs>
